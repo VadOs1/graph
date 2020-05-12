@@ -13,6 +13,12 @@ public class GraphTest {
         assertEquals(0, graph.getSize());
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testShouldThrowNullPointerExceptionWhenAddingNullVertex() {
+        Graph<Vertex> graph = new Graph<>();
+        graph.addVertex(null);
+    }
+
     @Test
     public void testShouldAddVertexWithIdNull() {
         Graph<Vertex> graph = new Graph<>();
@@ -67,6 +73,13 @@ public class GraphTest {
         assertEquals(0, graph.getSize());
         graph.removeVertex(new Vertex(0L));
         assertEquals(0, graph.getSize());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testShouldThrowNullPointerExceptionWhenRemovingNullVertex() {
+        Graph<Vertex> graph = new Graph<>();
+        assertEquals(0, graph.getSize());
+        graph.removeVertex(null);
     }
 
     @Test
