@@ -3,6 +3,7 @@ package com.gmail.dissa.vadim.graph;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Graph<T> {
@@ -33,5 +34,10 @@ public class Graph<T> {
 
     public List<T> getEdges(T t){
         return adjacencyVertexes.get(t);
+    }
+
+    public void addMatrixVerticesAndEdges(T [][] matrix){
+        Objects.requireNonNull(matrix);
+        // TODO: ADD IMPLEMENTATION
     }
 }
