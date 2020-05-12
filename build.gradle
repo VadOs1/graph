@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group 'com.gmail.dissa.vadim.graph'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
+    compileOnly 'org.projectlombok:lombok:1.18.2'
+    testCompile 'junit:junit:4.13'
+}
