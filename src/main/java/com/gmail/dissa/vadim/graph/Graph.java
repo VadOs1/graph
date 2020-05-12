@@ -24,4 +24,14 @@ public class Graph<T> {
     public void removeVertex(T t) {
         adjacencyVertexes.keySet().remove(t);
     }
+
+    public void createEdge(T from, T to) {
+        addVertex(from);
+        addVertex(to);
+        adjacencyVertexes.get(from).add(to);
+    }
+
+    public List<T> getEdges(T t){
+        return adjacencyVertexes.get(t);
+    }
 }
