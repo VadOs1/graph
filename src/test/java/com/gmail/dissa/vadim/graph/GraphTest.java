@@ -60,4 +60,50 @@ public class GraphTest {
         graph.addVertex(vertex3);
         assertEquals(3, graph.getSize());
     }
+
+    @Test
+    public void testShouldDeleteNothingFromEmptyGraph() {
+        Graph<Vertex> graph = new Graph<>();
+        assertEquals(0, graph.getSize());
+        graph.removeVertex(new Vertex(0L));
+        assertEquals(0, graph.getSize());
+    }
+
+    @Test
+    public void testShouldDeleteNothingFromEmptyGraphWithIdNull() {
+        Graph<Vertex> graph = new Graph<>();
+        assertEquals(0, graph.getSize());
+        graph.removeVertex(new Vertex(null));
+        assertEquals(0, graph.getSize());
+    }
+
+    @Test
+    public void testShouldDeleteFromGraph() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(0L);
+        Vertex vertex2 = new Vertex(1L);
+        Vertex vertex3 = new Vertex(null);
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.addVertex(vertex3);
+        assertEquals(3, graph.getSize());
+        graph.removeVertex(new Vertex(0L));
+        assertEquals(2, graph.getSize());
+    }
+
+    @Test
+    public void testShouldDeleteFromGraphWithIdNull() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(0L);
+        Vertex vertex2 = new Vertex(1L);
+        Vertex vertex3 = new Vertex(null);
+        Vertex vertex4 = new Vertex(null);
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.addVertex(vertex3);
+        graph.addVertex(vertex4);
+        assertEquals(3, graph.getSize());
+        graph.removeVertex(new Vertex(null));
+        assertEquals(2, graph.getSize());
+    }
 }
