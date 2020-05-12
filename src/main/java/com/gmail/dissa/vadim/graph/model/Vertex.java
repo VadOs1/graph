@@ -4,10 +4,8 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode
 public class Vertex {
     private Long id;
-    private String name;
 }
