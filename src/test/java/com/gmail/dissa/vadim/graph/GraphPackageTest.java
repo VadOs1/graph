@@ -63,9 +63,10 @@ public class GraphPackageTest {
         var vertexPackage3 = new VertexPackage("pkg3");
         var vertexPackage4 = new VertexPackage("pkg4");
         var vertexPackage5 = new VertexPackage("pkg5");
+        var vertexPackage6 = new VertexPackage("pkg6");
         var graph = new GraphPackage();
-        graph.addVertexAndDependencies(vertexPackage1, Arrays.asList(vertexPackage2, vertexPackage3));
-        graph.addVertexAndDependencies(vertexPackage4, Collections.singletonList(vertexPackage5));
+        graph.addVertexAndDependencies(vertexPackage1, Arrays.asList(vertexPackage2, vertexPackage3, vertexPackage6));
+        graph.addVertexAndDependencies(vertexPackage4, Arrays.asList(vertexPackage5, vertexPackage6));
 
         assertDoesNotThrow(()-> graph.removeVertexWithDependenciesCheck(vertexPackage4));
         assertEquals(3, graph.getSize());
