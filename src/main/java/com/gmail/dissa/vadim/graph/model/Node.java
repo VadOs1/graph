@@ -12,8 +12,8 @@ import java.util.Comparator;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Node implements Comparator<Node> {
-    public int node;
-    public int cost;
+    private int nodeId;
+    private int cost;
 
     @Override
     public int compare(Node node1, Node node2) {
