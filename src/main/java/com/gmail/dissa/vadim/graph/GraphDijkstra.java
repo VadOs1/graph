@@ -31,7 +31,7 @@ public class GraphDijkstra {
 
         priorityQueue.add(new Node(sourceNodeId, 0));
         distances[sourceNodeId] = 0;
-        while (settled.size() != numberOfVertices) {
+        while (!priorityQueue.isEmpty()) {
             int nodeId = priorityQueue.remove().getNodeId();
             settled.add(nodeId);
             processNeighbours(nodeId);
