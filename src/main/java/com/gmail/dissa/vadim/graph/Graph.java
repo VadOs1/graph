@@ -34,6 +34,10 @@ public class Graph<T> {
         adjacencyVertexes.get(from).add(to);
     }
 
+    public void removeEdge(T from, T to) {
+        adjacencyVertexes.get(from).remove(to);
+    }
+
     public int getSize() {
         return adjacencyVertexes.size();
     }

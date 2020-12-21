@@ -115,4 +115,26 @@ public class GraphTest {
         assertEquals(1, vertex1Edges.size());
         assertTrue(vertex1Edges.contains(vertex2));
     }
+
+    @Test
+    void shouldRemoveEdgeTest() {
+        // GIVEN
+        var graph = new Graph<Vertex>();
+        var vertex1 = new Vertex(UUID.randomUUID());
+        var vertex2 = new Vertex(UUID.randomUUID());
+        graph.createEdge(vertex1, vertex2);
+        var vertex1Edges = graph.getEdges(vertex1);
+        var vertex2Edges = graph.getEdges(vertex2);
+        assertEquals(1, vertex1Edges.size());
+        assertEquals(0, vertex2Edges.size());
+
+        // WHEN
+        graph.removeEdge(vertex1, vertex2);
+
+        // THEN
+        vertex1Edges = graph.getEdges(vertex1);
+        vertex2Edges = graph.getEdges(vertex2);
+        assertEquals(0, vertex1Edges.size());
+        assertEquals(0, vertex2Edges.size());
+    }
 }
