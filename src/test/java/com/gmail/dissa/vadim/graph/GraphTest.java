@@ -137,4 +137,14 @@ public class GraphTest {
         assertEquals(0, vertex1Edges.size());
         assertEquals(0, vertex2Edges.size());
     }
+
+    @Test
+    void removeShouldNotThrowExceptionTest() {
+        assertDoesNotThrow(() -> {
+            var graph = new Graph<Vertex>();
+            var vertex1 = new Vertex(UUID.randomUUID());
+            var vertex2 = new Vertex(UUID.randomUUID());
+            graph.removeEdge(vertex1, vertex2);
+        });
+    }
 }
