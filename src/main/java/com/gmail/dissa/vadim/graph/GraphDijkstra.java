@@ -45,15 +45,16 @@ public class GraphDijkstra {
         var edgeDistance = -1;
         var newDistance = -1;
 
-        for (Node v : adjacencyNodes) {
-            if (!settled.contains(v.getNodeId())) {
-                edgeDistance = v.getCost();
+        for (Node node : adjacencyNodes) {
+            if (!settled.contains(node.getNodeId())) {
+                edgeDistance = node.getCost();
                 newDistance = distances[nodeId] + edgeDistance;
 
-                if (newDistance < distances[v.getNodeId()])
-                    distances[v.getNodeId()] = newDistance;
+                if (newDistance < distances[node.getNodeId()]){
+                    distances[node.getNodeId()] = newDistance;
+                }
 
-                priorityQueue.add(new Node(v.getNodeId(), distances[v.getNodeId()]));
+                priorityQueue.add(new Node(node.getNodeId(), distances[node.getNodeId()]));
             }
         }
     }
