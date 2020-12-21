@@ -1,47 +1,49 @@
 package com.gmail.dissa.vadim.graph;
 
+import com.gmail.dissa.vadim.graph.model.Vertex;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Graph<T> {
+public class Graph {
 
-    private Map<T, List<T>> adjacencyVertexes;
+    private Map<Vertex, List<Vertex>> adjacencyVertexes;
 
     public Graph() {
         adjacencyVertexes = new ConcurrentHashMap<>();
         print();
     }
 
-    public Graph(T[][] matrix) {
+    public Graph(Vertex[][] matrix) {
         if (matrix == null) {
             throw new NullPointerException("Can not create Graph from null matrix");
         }
         adjacencyVertexes = new ConcurrentHashMap<>();
-        for (T[] t : matrix) {
-            for (T st : t) {
+        for (Vertex[] t : matrix) {
+            for (Vertex st : t) {
                 addVertex(st);
             }
         }
         print();
     }
 
-    public void addVertex(T t) {
-        if (t == null) {
+    public void addVertex(Vertex vertex) {
+        if (vertex == null) {
             throw new NullPointerException("Can not add null vertex");
         }
-        adjacencyVertexes.putIfAbsent(t, new LinkedList<>());
+        adjacencyVertexes.putIfAbsent(vertex, new LinkedList<>());
     }
 
-    public void removeVertex(T t) {
-        if (t == null) {
+    public void removeVertex(Vertex vertex) {
+        if (vertex == null) {
             throw new NullPointerException("Can not remove null vertex");
         }
-        adjacencyVertexes.keySet().remove(t);
+        adjacencyVertexes.keySet().remove(vertex);
     }
 
-    public void createEdge(T from, T to) {
+    public void createEdge(Vertex from, Vertex to) {
         addVertex(from);
         addVertex(to);
         adjacencyVertexes.get(from).add(to);
@@ -51,12 +53,12 @@ public class Graph<T> {
         return adjacencyVertexes.size();
     }
 
-    public List<T> getEdges(T t) {
-        return adjacencyVertexes.get(t);
+    public List<Vertex> getEdges(Vertex vertex) {
+        return adjacencyVertexes.get(vertex);
     }
 
-    public void print() {
-        for (Map.Entry<T, List<T>> entry : adjacencyVertexes.entrySet()) {
+    private void print() {
+        for (Map.Entry<Vertex, List<Vertex>> entry : adjacencyVertexes.entrySet()) {
             System.out.print("Vertex = " + entry.getKey() + ". Edges: ");
             entry.getValue().forEach(System.out::print);
             System.out.println();

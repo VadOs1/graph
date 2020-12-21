@@ -2,6 +2,8 @@ package com.gmail.dissa.vadim.graph.model;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -9,5 +11,6 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class Vertex {
-    private Long id;
+    private UUID id;
+    private String value;
 }
