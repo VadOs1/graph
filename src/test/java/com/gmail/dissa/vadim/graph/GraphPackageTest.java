@@ -4,6 +4,7 @@ import com.gmail.dissa.vadim.graph.model.VertexPackage;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,5 +31,6 @@ public class GraphPackageTest {
         var vertexPackage3 = new VertexPackage("pkg3");
         var graph = new GraphPackage();
         graph.addVertexAndDependencies(vertexPackage1, Arrays.asList(vertexPackage2, vertexPackage3));
+        graph.addVertexAndDependencies(vertexPackage2, Collections.singletonList(vertexPackage3));
     }
 }
