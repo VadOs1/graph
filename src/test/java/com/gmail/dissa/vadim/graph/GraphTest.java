@@ -1,12 +1,12 @@
 package com.gmail.dissa.vadim.graph;
 
 import com.gmail.dissa.vadim.graph.model.Vertex;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class GraphTest {
 
@@ -16,10 +16,12 @@ public class GraphTest {
         assertEquals(0, graph.getSize());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testShouldThrowNullPointerExceptionWhenAddingNullVertex() {
-        Graph<Vertex> graph = new Graph<>();
-        graph.addVertex(null);
+        assertThrows(NullPointerException.class, () -> {
+            Graph<Vertex> graph = new Graph<>();
+            graph.addVertex(null);
+        });
     }
 
     @Test
@@ -78,11 +80,13 @@ public class GraphTest {
         assertEquals(0, graph.getSize());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testShouldThrowNullPointerExceptionWhenRemovingNullVertex() {
-        Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getSize());
-        graph.removeVertex(null);
+        assertThrows(NullPointerException.class, () -> {
+            Graph<Vertex> graph = new Graph<>();
+            assertEquals(0, graph.getSize());
+            graph.removeVertex(null);
+        });
     }
 
     @Test
@@ -124,7 +128,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldCreateAndReturnEdges(){
+    public void testShouldCreateAndReturnEdges() {
         Graph<Vertex> graph = new Graph<>();
         Vertex vertex1 = new Vertex(0L);
         Vertex vertex2 = new Vertex(1L);

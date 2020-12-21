@@ -9,8 +9,13 @@ repositories {
     mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
-    annotationProcessor 'org.projectlombok:lombok:1.18.2'
-    compileOnly 'org.projectlombok:lombok:1.18.2'
-    testCompile 'junit:junit:4.13'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
