@@ -12,13 +12,13 @@ public class GraphPackageTest {
 
     @Test
     void shouldCreateEmptyGraphTest() {
-        var graph = new GraphPackage();
+        var graph = new GraphPackage<VertexPackage>();
         assertEquals(0, graph.getSize());
     }
 
     @Test
     void shouldAddVertexTest() {
-        var graph = new GraphPackage();
+        var graph = new GraphPackage<VertexPackage>();
         var vertex = new VertexPackage("package name");
         graph.addVertex(vertex);
         assertEquals(1, graph.getSize());
@@ -29,7 +29,7 @@ public class GraphPackageTest {
         var vertexPackage1 = new VertexPackage("pkg1");
         var vertexPackage2 = new VertexPackage("pkg2");
         var vertexPackage3 = new VertexPackage("pkg3");
-        var graph = new GraphPackage();
+        var graph = new GraphPackage<VertexPackage>();
         graph.addVertexAndDependencies(vertexPackage1, Collections.singletonList(vertexPackage2));
         graph.addVertexAndDependencies(vertexPackage1, Arrays.asList(vertexPackage2, vertexPackage3));
         graph.addVertexAndDependencies(vertexPackage2, Collections.singletonList(vertexPackage3));
@@ -45,14 +45,14 @@ public class GraphPackageTest {
         var vertexPackage1 = new VertexPackage("pkg1");
         var vertexPackage2 = new VertexPackage("pkg2");
         var vertexPackage3 = new VertexPackage("pkg3");
-        var graph = new GraphPackage();
+        var graph = new GraphPackage<VertexPackage>();
         graph.addVertexAndDependencies(vertexPackage1, Collections.singletonList(vertexPackage2));
         graph.addVertexAndDependencies(vertexPackage1, Arrays.asList(vertexPackage2, vertexPackage3));
         graph.addVertexAndDependencies(vertexPackage2, Collections.singletonList(vertexPackage3));
 
         assertThrows(IllegalArgumentException.class, () -> graph.removeVertexWithDependenciesCheck(vertexPackage3));
         assertThrows(IllegalArgumentException.class, () -> graph.removeVertexWithDependenciesCheck(vertexPackage2));
-        assertDoesNotThrow(()-> graph.removeVertexWithDependenciesCheck(vertexPackage1));
+        assertDoesNotThrow(() -> graph.removeVertexWithDependenciesCheck(vertexPackage1));
         assertEquals(0, graph.getSize());
     }
 
@@ -64,11 +64,11 @@ public class GraphPackageTest {
         var vertexPackage4 = new VertexPackage("pkg4");
         var vertexPackage5 = new VertexPackage("pkg5");
         var vertexPackage6 = new VertexPackage("pkg6");
-        var graph = new GraphPackage();
+        var graph = new GraphPackage<VertexPackage>();
         graph.addVertexAndDependencies(vertexPackage1, Arrays.asList(vertexPackage2, vertexPackage3, vertexPackage6));
         graph.addVertexAndDependencies(vertexPackage4, Arrays.asList(vertexPackage5, vertexPackage6));
 
-        assertDoesNotThrow(()-> graph.removeVertexWithDependenciesCheck(vertexPackage4));
+        assertDoesNotThrow(() -> graph.removeVertexWithDependenciesCheck(vertexPackage4));
         assertEquals(4, graph.getSize());
     }
 }

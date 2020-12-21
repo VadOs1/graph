@@ -1,14 +1,12 @@
 package com.gmail.dissa.vadim.graph;
 
-import com.gmail.dissa.vadim.graph.model.VertexPackage;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class GraphPackage extends Graph<VertexPackage> {
+public class GraphPackage<T> extends Graph<T> {
 
-    public void addVertexAndDependencies(VertexPackage vertex, List<VertexPackage> dependencies) {
+    public void addVertexAndDependencies(T vertex, List<T> dependencies) {
         if (vertex == null || dependencies == null) {
             throw new IllegalArgumentException("Vertex and dependencies should not be nulls");
         }
@@ -20,7 +18,7 @@ public class GraphPackage extends Graph<VertexPackage> {
         print();
     }
 
-    public void removeVertexWithDependenciesCheck(VertexPackage vertex) {
+    public void removeVertexWithDependenciesCheck(T vertex) {
         if (vertex == null) {
             throw new IllegalArgumentException("Can not remove null vertex");
         }
@@ -30,12 +28,12 @@ public class GraphPackage extends Graph<VertexPackage> {
         }
         var dependencies = getEdges(vertex);
         removeVertex(vertex);
-        if(dependencies != null){
+        if (dependencies != null) {
             removeUnusedDependencies(dependencies);
         }
     }
 
-    private void removeUnusedDependencies(Set<VertexPackage> dependencies){
+    private void removeUnusedDependencies(Set<T> dependencies) {
         dependencies.forEach(dependency -> {
             if (adjacencyVertexes.values().stream().flatMap(Collection::stream).noneMatch(dependency::equals)) {
                 removeVertexWithDependenciesCheck(dependency);
