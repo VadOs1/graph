@@ -52,4 +52,12 @@ public class Graph<T> {
     public List<T> getEdges(T t) {
         return adjacencyVertexes.get(t);
     }
+
+    public void print() {
+        for (Map.Entry<T, List<T>> entry : adjacencyVertexes.entrySet()) {
+            System.out.print("Vertex = " + entry.getKey() + ". Edges: ");
+            entry.getValue().forEach(System.out::print);
+            System.out.println();
+        }
+    }
 }
