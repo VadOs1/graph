@@ -28,5 +28,6 @@ public class GraphPackage extends Graph<VertexPackage> {
             throw new IllegalArgumentException("Cannot remove vertex. There is dependency on it");
         }
         removeVertex(vertex);
+        // TODO: REMOVE DEPENDENCIES THAT NOBODY REFERS TO
     }
 }
