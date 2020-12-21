@@ -10,14 +10,14 @@ public class GraphTest {
 
     @Test
     public void testInitialSizeOfGraphShouldBeZero() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         assertEquals(0, graph.getSize());
     }
 
     @Test
     public void testShouldThrowNullPointerExceptionWhenAddingNullVertex() {
         assertThrows(NullPointerException.class, () -> {
-            var graph = new Graph<>();
+            var graph = new Graph<Vertex>();
             graph.addVertex(null);
         });
     }
@@ -25,7 +25,7 @@ public class GraphTest {
     @Test
     public void testShouldThrowNullPointerExceptionWhenRemovingNullVertex() {
         assertThrows(NullPointerException.class, () -> {
-            var graph = new Graph<>();
+            var graph = new Graph<Vertex>();
             assertEquals(0, graph.getSize());
             graph.removeVertex(null);
         });
@@ -33,7 +33,7 @@ public class GraphTest {
 
     @Test
     public void testShouldAddVertex() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         var vertex = new Vertex(0L);
         graph.addVertex(vertex);
         assertEquals(1, graph.getSize());
@@ -41,7 +41,7 @@ public class GraphTest {
 
     @Test
     public void testShouldAddTwoVertices() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
         graph.addVertex(vertex1);
@@ -51,7 +51,7 @@ public class GraphTest {
 
     @Test
     public void testShouldAddThreeVertices() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
         var vertex3 = new Vertex(null);
@@ -63,7 +63,7 @@ public class GraphTest {
 
     @Test
     public void testShouldAddVertexWithIdNullOnlyOnce() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(null);
         var vertex2 = new Vertex(null);
         graph.addVertex(vertex1);
@@ -73,7 +73,7 @@ public class GraphTest {
 
     @Test
     public void testShouldDeleteNothingFromEmptyGraph() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         assertEquals(0, graph.getSize());
         graph.removeVertex(new Vertex(0L));
         assertEquals(0, graph.getSize());
@@ -81,7 +81,7 @@ public class GraphTest {
 
     @Test
     public void testShouldDeleteFromGraph() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
         var vertex3 = new Vertex(null);
@@ -95,7 +95,7 @@ public class GraphTest {
 
     @Test
     public void testShouldDeleteNothingFromEmptyGraphWithIdNull() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         assertEquals(0, graph.getSize());
         graph.removeVertex(new Vertex(null));
         assertEquals(0, graph.getSize());
@@ -103,7 +103,7 @@ public class GraphTest {
 
     @Test
     public void testShouldDeleteFromGraphWithIdNull() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
         var vertex3 = new Vertex(null);
@@ -119,7 +119,7 @@ public class GraphTest {
 
     @Test
     public void testShouldCreateAndReturnEdges() {
-        var graph = new Graph<>();
+        var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
         graph.createEdge(vertex1, vertex2);
