@@ -69,6 +69,6 @@ public class GraphPackageTest {
         graph.addVertexAndDependencies(vertexPackage4, Arrays.asList(vertexPackage5, vertexPackage6));
 
         assertDoesNotThrow(()-> graph.removeVertexWithDependenciesCheck(vertexPackage4));
-        assertEquals(3, graph.getSize());
+        assertEquals(4, graph.getSize());
     }
 }

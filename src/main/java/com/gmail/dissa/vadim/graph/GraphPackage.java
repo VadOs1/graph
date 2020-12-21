@@ -37,7 +37,7 @@ public class GraphPackage extends Graph<VertexPackage> {
 
     private void removeUnusedDependencies(Set<VertexPackage> dependencies){
         dependencies.forEach(dependency -> {
-            if (adjacencyVertexes.values().stream().flatMap(Collection::stream).noneMatch(dependencies::equals)) {
+            if (adjacencyVertexes.values().stream().flatMap(Collection::stream).noneMatch(dependency::equals)) {
                 removeVertexWithDependenciesCheck(dependency);
             }
         });
