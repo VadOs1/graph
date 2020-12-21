@@ -11,6 +11,7 @@ public class Graph<T> {
 
     public Graph() {
         adjacencyVertexes = new ConcurrentHashMap<>();
+        print();
     }
 
     public Graph(T[][] matrix) {
@@ -23,6 +24,7 @@ public class Graph<T> {
                 addVertex(st);
             }
         }
+        print();
     }
 
     public void addVertex(T t) {

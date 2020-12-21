@@ -1,7 +1,10 @@
 package com.gmail.dissa.vadim.graph;
 
 import com.gmail.dissa.vadim.graph.model.Vertex;
+import com.gmail.dissa.vadim.graph.model.VertexBoard;
 import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,6 +35,38 @@ public class GraphTest {
 
         // THEN
         assertEquals(4, graph.getSize());
+    }
+
+    @Test
+    void shouldCreateGraphFromVertexBoardMatrixTest() {
+        // GIVEN
+        VertexBoard[][] matrix = new VertexBoard[3][6];
+        matrix[0][0] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[0][1] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[0][2] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[0][3] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[0][4] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[0][5] = new VertexBoard(UUID.randomUUID(), "1");
+
+        matrix[1][0] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[1][1] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[1][2] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[1][3] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[1][4] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[1][5] = new VertexBoard(UUID.randomUUID(), "1");
+
+        matrix[2][0] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[2][1] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[2][2] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[2][3] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[2][4] = new VertexBoard(UUID.randomUUID(), "1");
+        matrix[2][5] = new VertexBoard(UUID.randomUUID(), "1");
+
+        // WHEN
+        var graph = new Graph<>(matrix);
+
+        // THEN
+        assertEquals(18, graph.getSize());
     }
 
     @Test
