@@ -4,6 +4,7 @@ import com.gmail.dissa.vadim.graph.model.VertexPackage;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class GraphPackage extends Graph<VertexPackage> {
 
@@ -27,7 +28,18 @@ public class GraphPackage extends Graph<VertexPackage> {
         if (adjacencyVertexes.values().stream().flatMap(Collection::stream).anyMatch(vertex::equals)) {
             throw new IllegalArgumentException("Cannot remove vertex. There is dependency on it");
         }
+        var dependencies = getEdges(vertex);
         removeVertex(vertex);
-        // TODO: REMOVE DEPENDENCIES THAT NOBODY REFERS TO
+        if(dependencies != null){
+            removeUnusedDependencies(dependencies);
+        }
+    }
+
+    private void removeUnusedDependencies(Set<VertexPackage> dependencies){
+        dependencies.forEach(dependency -> {
+            if (adjacencyVertexes.values().stream().flatMap(Collection::stream).noneMatch(dependencies::equals)) {
+                removeVertexWithDependenciesCheck(dependency);
+            }
+        });
     }
 }

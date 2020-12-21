@@ -53,6 +53,21 @@ public class GraphPackageTest {
         assertThrows(IllegalArgumentException.class, () -> graph.removeVertexWithDependenciesCheck(vertexPackage3));
         assertThrows(IllegalArgumentException.class, () -> graph.removeVertexWithDependenciesCheck(vertexPackage2));
         assertDoesNotThrow(()-> graph.removeVertexWithDependenciesCheck(vertexPackage1));
-        assertEquals(2, graph.getSize());
+        assertEquals(0, graph.getSize());
+    }
+
+    @Test
+    void removeVertexWithDependenciesCheckTest1() {
+        var vertexPackage1 = new VertexPackage("pkg1");
+        var vertexPackage2 = new VertexPackage("pkg2");
+        var vertexPackage3 = new VertexPackage("pkg3");
+        var vertexPackage4 = new VertexPackage("pkg4");
+        var vertexPackage5 = new VertexPackage("pkg5");
+        var graph = new GraphPackage();
+        graph.addVertexAndDependencies(vertexPackage1, Arrays.asList(vertexPackage2, vertexPackage3));
+        graph.addVertexAndDependencies(vertexPackage4, Collections.singletonList(vertexPackage5));
+
+        assertDoesNotThrow(()-> graph.removeVertexWithDependenciesCheck(vertexPackage4));
+        assertEquals(3, graph.getSize());
     }
 }
