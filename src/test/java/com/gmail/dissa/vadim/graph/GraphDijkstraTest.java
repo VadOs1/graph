@@ -25,7 +25,14 @@ public class GraphDijkstraTest {
             adjacencyList.get(2).add(new Node(3, 4));
 
             GraphDijkstra dpq = new GraphDijkstra(adjacencyList);
-            dpq.dijkstra(0);
+            var distances = dpq.dijkstra(0);
+            print(distances);
         });
+    }
+
+    private void print(int[] distances) {
+        System.out.println("The shorted path from node :");
+        for (int i = 0; i < distances.length; i++)
+            System.out.println(0 + " to " + i + " is " + distances[i]);
     }
 }

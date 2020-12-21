@@ -24,7 +24,7 @@ public class GraphDijkstra {
         this.priorityQueue = new PriorityQueue<>(numberOfVertices, new Node());
     }
 
-    public void dijkstra(int sourceNodeId) {
+    public int[] dijkstra(int sourceNodeId) {
         for (int i = 0; i < numberOfVertices; i++) {
             distances[i] = Integer.MAX_VALUE;
         }
@@ -36,7 +36,7 @@ public class GraphDijkstra {
             settled.add(nodeId);
             processNeighbours(nodeId);
         }
-        print();
+        return distances;
     }
 
 
@@ -56,11 +56,5 @@ public class GraphDijkstra {
                 priorityQueue.add(new Node(v.getNodeId(), distances[v.getNodeId()]));
             }
         }
-    }
-
-    private void print() {
-        System.out.println("The shorted path from node :");
-        for (int i = 0; i < distances.length; i++)
-            System.out.println(0 + " to " + i + " is " + distances[i]);
     }
 }
