@@ -3,7 +3,6 @@ package com.gmail.dissa.vadim.graph;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Graph<T> {
@@ -12,6 +11,18 @@ public class Graph<T> {
 
     public Graph() {
         adjacencyVertexes = new ConcurrentHashMap<>();
+    }
+
+    public Graph(T[][] matrix) {
+        if (matrix == null) {
+            throw new NullPointerException("Can not create Graph from null matrix");
+        }
+        adjacencyVertexes = new ConcurrentHashMap<>();
+        for (T[] t : matrix) {
+            for (T st : t) {
+                addVertex(st);
+            }
+        }
     }
 
     public void addVertex(T t) {
@@ -40,10 +51,5 @@ public class Graph<T> {
 
     public List<T> getEdges(T t) {
         return adjacencyVertexes.get(t);
-    }
-
-    public void addMatrixVerticesAndEdges(T[][] matrix) {
-        Objects.requireNonNull(matrix);
-        // TODO: ADD IMPLEMENTATION
     }
 }

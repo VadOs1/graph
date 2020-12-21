@@ -9,13 +9,33 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GraphTest {
 
     @Test
-    public void testInitialSizeOfGraphShouldBeZero() {
+    public void shouldCreateEmptyGraphTest() {
         var graph = new Graph<Vertex>();
         assertEquals(0, graph.getSize());
     }
 
     @Test
-    public void testShouldThrowNullPointerExceptionWhenAddingNullVertex() {
+    public void shouldCreateGraphFromMatrixTest() {
+        // GIVEN
+        var vertex1 = new Vertex(1l);
+        var vertex2 = new Vertex(2l);
+        var vertex3 = new Vertex(3l);
+        var vertex4 = new Vertex(4l);
+        Vertex[][] matrix = new Vertex[2][2];
+        matrix[0][0] = vertex1;
+        matrix[0][1] = vertex2;
+        matrix[1][0] = vertex3;
+        matrix[1][1] = vertex4;
+
+        // WHEN
+        var graph = new Graph<>(matrix);
+
+        // THEN
+        assertEquals(4, graph.getSize());
+    }
+
+    @Test
+    public void shouldThrowNullPointerExceptionWhenAddingNullVertexTest() {
         assertThrows(NullPointerException.class, () -> {
             var graph = new Graph<Vertex>();
             graph.addVertex(null);
@@ -23,7 +43,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldThrowNullPointerExceptionWhenRemovingNullVertex() {
+    public void shouldThrowNullPointerExceptionWhenRemovingNullVertexTest() {
         assertThrows(NullPointerException.class, () -> {
             var graph = new Graph<Vertex>();
             assertEquals(0, graph.getSize());
@@ -32,7 +52,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldAddVertex() {
+    public void shouldAddVertexTest() {
         var graph = new Graph<Vertex>();
         var vertex = new Vertex(0L);
         graph.addVertex(vertex);
@@ -40,7 +60,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldAddTwoVertices() {
+    public void shouldAddTwoVerticesTest() {
         var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
@@ -50,7 +70,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldAddThreeVertices() {
+    public void shouldAddThreeVerticesTest() {
         var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
@@ -62,7 +82,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldAddVertexWithIdNullOnlyOnce() {
+    public void shouldAddVertexWithIdNullOnlyOnceTest() {
         var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(null);
         var vertex2 = new Vertex(null);
@@ -72,7 +92,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldDeleteNothingFromEmptyGraph() {
+    public void shouldDeleteNothingFromEmptyGraphTest() {
         var graph = new Graph<Vertex>();
         assertEquals(0, graph.getSize());
         graph.removeVertex(new Vertex(0L));
@@ -80,7 +100,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldDeleteFromGraph() {
+    public void shouldDeleteFromGraphTest() {
         var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
@@ -94,7 +114,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldDeleteNothingFromEmptyGraphWithIdNull() {
+    public void shouldDeleteNothingFromEmptyGraphWithIdNullTest() {
         var graph = new Graph<Vertex>();
         assertEquals(0, graph.getSize());
         graph.removeVertex(new Vertex(null));
@@ -102,7 +122,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldDeleteFromGraphWithIdNull() {
+    public void shouldDeleteFromGraphWithIdNullTest() {
         var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
@@ -118,7 +138,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldCreateAndReturnEdges() {
+    public void shouldCreateAndReturnEdgesTest() {
         var graph = new Graph<Vertex>();
         var vertex1 = new Vertex(0L);
         var vertex2 = new Vertex(1L);
