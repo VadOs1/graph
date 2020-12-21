@@ -3,7 +3,6 @@ package com.gmail.dissa.vadim.graph;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Graph<T> {
 
@@ -18,7 +17,7 @@ public class Graph<T> {
         if (t == null) {
             throw new IllegalArgumentException("Can not add null vertex");
         }
-        adjacencyVertexes.putIfAbsent(t, new CopyOnWriteArraySet<>());
+        adjacencyVertexes.putIfAbsent(t, ConcurrentHashMap.newKeySet());
     }
 
     public void removeVertex(T t) {
