@@ -64,6 +64,38 @@ public class GraphTest {
     }
 
     @Test
+    void shouldCreateGraphFromVertexBoardMatrixTest() {
+        // GIVEN
+        Vertex[][] matrix = new Vertex[3][6];
+        matrix[0][0] = new Vertex(UUID.randomUUID(), "1");
+        matrix[0][1] = new Vertex(UUID.randomUUID(), "1");
+        matrix[0][2] = new Vertex(UUID.randomUUID(), "1");
+        matrix[0][3] = new Vertex(UUID.randomUUID(), "1");
+        matrix[0][4] = new Vertex(UUID.randomUUID(), "1");
+        matrix[0][5] = new Vertex(UUID.randomUUID(), "1");
+
+        matrix[1][0] = new Vertex(UUID.randomUUID(), "1");
+        matrix[1][1] = new Vertex(UUID.randomUUID(), "1");
+        matrix[1][2] = new Vertex(UUID.randomUUID(), "1");
+        matrix[1][3] = new Vertex(UUID.randomUUID(), "1");
+        matrix[1][4] = new Vertex(UUID.randomUUID(), "1");
+        matrix[1][5] = new Vertex(UUID.randomUUID(), "1");
+
+        matrix[2][0] = new Vertex(UUID.randomUUID(), "1");
+        matrix[2][1] = new Vertex(UUID.randomUUID(), "1");
+        matrix[2][2] = new Vertex(UUID.randomUUID(), "1");
+        matrix[2][3] = new Vertex(UUID.randomUUID(), "1");
+        matrix[2][4] = new Vertex(UUID.randomUUID(), "1");
+        matrix[2][5] = new Vertex(UUID.randomUUID(), "1");
+
+        // WHEN
+        var graph = new Graph(matrix);
+
+        // THEN
+        assertEquals(18, graph.getSize());
+    }
+
+    @Test
     void shouldAddVertexWithNullsOnlyOnceTest() {
         var graph = new Graph();
         var vertex1 = new Vertex(null, null);
