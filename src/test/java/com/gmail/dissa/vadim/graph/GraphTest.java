@@ -113,6 +113,6 @@ public class GraphTest {
         var vertex1Edges = graph.getEdges(vertex1);
         assertNotNull(vertex1Edges);
         assertEquals(1, vertex1Edges.size());
-        assertEquals(vertex2, vertex1Edges.get(0));
+        assertTrue(vertex1Edges.contains(vertex2));
     }
 }

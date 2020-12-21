@@ -1,13 +1,13 @@
 package com.gmail.dissa.vadim.graph;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Graph<T> {
 
-    protected Map<T, List<T>> adjacencyVertexes;
+    protected Map<T, Set<T>> adjacencyVertexes;
 
     public Graph() {
         adjacencyVertexes = new ConcurrentHashMap<>();
@@ -18,7 +18,7 @@ public class Graph<T> {
         if (t == null) {
             throw new IllegalArgumentException("Can not add null vertex");
         }
-        adjacencyVertexes.putIfAbsent(t, new LinkedList<>());
+        adjacencyVertexes.putIfAbsent(t, new CopyOnWriteArraySet<>());
     }
 
     public void removeVertex(T t) {
@@ -38,12 +38,12 @@ public class Graph<T> {
         return adjacencyVertexes.size();
     }
 
-    public List<T> getEdges(T t) {
+    public Set<T> getEdges(T t) {
         return adjacencyVertexes.get(t);
     }
 
     protected void print() {
-        for (Map.Entry<T, List<T>> entry : adjacencyVertexes.entrySet()) {
+        for (Map.Entry<T, Set<T>> entry : adjacencyVertexes.entrySet()) {
             System.out.print("Vertex = " + entry.getKey() + ". Edges: ");
             entry.getValue().forEach(System.out::print);
             System.out.println();
