@@ -17,16 +17,16 @@ public class GraphTest {
     }
 
     @Test
-    void shouldThrowNullPointerExceptionWhenAddingNullVertexTest() {
-        assertThrows(NullPointerException.class, () -> {
+    void shouldThrowExceptionWhenAddingNullVertexTest() {
+        assertThrows(IllegalArgumentException.class, () -> {
             var graph = new Graph<Vertex>();
             graph.addVertex(null);
         });
     }
 
     @Test
-    void shouldThrowNullPointerExceptionWhenRemovingNullVertexTest() {
-        assertThrows(NullPointerException.class, () -> {
+    void shouldThrowExceptionWhenRemovingNullVertexTest() {
+        assertThrows(IllegalArgumentException.class, () -> {
             var graph = new Graph<Vertex>();
             assertEquals(0, graph.getSize());
             graph.removeVertex(null);

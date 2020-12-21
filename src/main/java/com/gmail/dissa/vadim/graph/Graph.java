@@ -16,14 +16,14 @@ public class Graph<T> {
 
     public void addVertex(T t) {
         if (t == null) {
-            throw new NullPointerException("Can not add null vertex");
+            throw new IllegalArgumentException("Can not add null vertex");
         }
         adjacencyVertexes.putIfAbsent(t, new LinkedList<>());
     }
 
     public void removeVertex(T t) {
         if (t == null) {
-            throw new NullPointerException("Can not remove null vertex");
+            throw new IllegalArgumentException("Can not remove null vertex");
         }
         adjacencyVertexes.keySet().remove(t);
     }
