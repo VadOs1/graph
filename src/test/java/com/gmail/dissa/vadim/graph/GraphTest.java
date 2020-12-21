@@ -149,4 +149,15 @@ public class GraphTest {
         assertEquals(1, vertex1Edges.size());
         assertEquals(vertex2, vertex1Edges.get(0));
     }
+
+    @Test
+    void shouldPrintGraphTest() {
+        assertDoesNotThrow(() -> {
+            var graph = new Graph<Vertex>();
+            var vertex1 = new Vertex(0L);
+            var vertex2 = new Vertex(1L);
+            graph.createEdge(vertex1, vertex2);
+            graph.print();
+        });
+    }
 }
