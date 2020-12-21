@@ -16,19 +16,6 @@ public class Graph {
         print();
     }
 
-    public Graph(Vertex[][] matrix) {
-        if (matrix == null) {
-            throw new NullPointerException("Can not create Graph from null matrix");
-        }
-        adjacencyVertexes = new ConcurrentHashMap<>();
-        for (Vertex[] t : matrix) {
-            for (Vertex st : t) {
-                addVertex(st);
-            }
-        }
-        print();
-    }
-
     public void addVertex(Vertex vertex) {
         if (vertex == null) {
             throw new NullPointerException("Can not add null vertex");
