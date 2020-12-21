@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Graph<T> {
 
-    private Map<T, List<T>> adjacencyVertexes;
+    protected Map<T, List<T>> adjacencyVertexes;
 
     public Graph() {
         adjacencyVertexes = new ConcurrentHashMap<>();
@@ -42,7 +42,7 @@ public class Graph<T> {
         return adjacencyVertexes.get(t);
     }
 
-    private void print() {
+    protected void print() {
         for (Map.Entry<T, List<T>> entry : adjacencyVertexes.entrySet()) {
             System.out.print("Vertex = " + entry.getKey() + ". Edges: ");
             entry.getValue().forEach(System.out::print);
