@@ -4,6 +4,7 @@ plugins {
 
 group 'com.gmail.dissa.vadim.graph'
 version '1.0-SNAPSHOT'
+sourceCompatibility = '15'
 
 repositories {
     mavenCentral()
