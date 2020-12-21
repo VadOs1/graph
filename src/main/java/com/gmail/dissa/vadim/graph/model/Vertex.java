@@ -12,5 +12,4 @@ import java.util.UUID;
 @ToString
 public class Vertex {
     private UUID id;
-    private String value;
 }

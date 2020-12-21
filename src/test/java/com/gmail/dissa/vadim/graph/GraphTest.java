@@ -12,14 +12,14 @@ public class GraphTest {
 
     @Test
     void shouldCreateEmptyGraphTest() {
-        var graph = new Graph();
+        var graph = new Graph<Vertex>();
         assertEquals(0, graph.getSize());
     }
 
     @Test
     void shouldThrowNullPointerExceptionWhenAddingNullVertexTest() {
         assertThrows(NullPointerException.class, () -> {
-            var graph = new Graph();
+            var graph = new Graph<Vertex>();
             graph.addVertex(null);
         });
     }
@@ -27,7 +27,7 @@ public class GraphTest {
     @Test
     void shouldThrowNullPointerExceptionWhenRemovingNullVertexTest() {
         assertThrows(NullPointerException.class, () -> {
-            var graph = new Graph();
+            var graph = new Graph<Vertex>();
             assertEquals(0, graph.getSize());
             graph.removeVertex(null);
         });
@@ -35,17 +35,17 @@ public class GraphTest {
 
     @Test
     void shouldAddVertexTest() {
-        var graph = new Graph();
-        var vertex = new Vertex(UUID.randomUUID(), "1");
+        var graph = new Graph<Vertex>();
+        var vertex = new Vertex(UUID.randomUUID());
         graph.addVertex(vertex);
         assertEquals(1, graph.getSize());
     }
 
     @Test
     void shouldAddTwoVerticesTest() {
-        var graph = new Graph();
-        var vertex1 = new Vertex(UUID.randomUUID(), "1");
-        var vertex2 = new Vertex(UUID.randomUUID(), "1");
+        var graph = new Graph<Vertex>();
+        var vertex1 = new Vertex(UUID.randomUUID());
+        var vertex2 = new Vertex(UUID.randomUUID());
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
         assertEquals(2, graph.getSize());
@@ -53,10 +53,10 @@ public class GraphTest {
 
     @Test
     void shouldAddThreeVerticesTest() {
-        var graph = new Graph();
-        var vertex1 = new Vertex(UUID.randomUUID(), "1");
-        var vertex2 = new Vertex(UUID.randomUUID(), "1");
-        var vertex3 = new Vertex(null, null);
+        var graph = new Graph<Vertex>();
+        var vertex1 = new Vertex(UUID.randomUUID());
+        var vertex2 = new Vertex(UUID.randomUUID());
+        var vertex3 = new Vertex(null);
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
         graph.addVertex(vertex3);
@@ -65,9 +65,9 @@ public class GraphTest {
 
     @Test
     void shouldAddVertexWithNullsOnlyOnceTest() {
-        var graph = new Graph();
-        var vertex1 = new Vertex(null, null);
-        var vertex2 = new Vertex(null, null);
+        var graph = new Graph<Vertex>();
+        var vertex1 = new Vertex(null);
+        var vertex2 = new Vertex(null);
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
         assertEquals(1, graph.getSize());
@@ -75,39 +75,39 @@ public class GraphTest {
 
     @Test
     void shouldDeleteNothingFromEmptyGraphTest() {
-        var graph = new Graph();
+        var graph = new Graph<Vertex>();
         assertEquals(0, graph.getSize());
-        graph.removeVertex(new Vertex(UUID.randomUUID(), ""));
+        graph.removeVertex(new Vertex(UUID.randomUUID()));
         assertEquals(0, graph.getSize());
     }
 
     @Test
     void shouldDeleteFromGraphTest() {
-        var graph = new Graph();
-        var vertex1 = new Vertex(UUID.randomUUID(), "1");
-        var vertex2 = new Vertex(null, "1");
-        var vertex3 = new Vertex(UUID.randomUUID(), null);
+        var graph = new Graph<Vertex>();
+        var vertex1 = new Vertex(UUID.randomUUID());
+        var vertex2 = new Vertex(null);
+        var vertex3 = new Vertex(UUID.randomUUID());
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
         graph.addVertex(vertex3);
         assertEquals(3, graph.getSize());
-        graph.removeVertex(vertex3);
+        graph.removeVertex(vertex2);
         assertEquals(2, graph.getSize());
     }
 
     @Test
     void shouldDeleteNothingFromEmptyGraphWithNullsTest() {
-        var graph = new Graph();
+        var graph = new Graph<Vertex>();
         assertEquals(0, graph.getSize());
-        graph.removeVertex(new Vertex(null, null));
+        graph.removeVertex(new Vertex(null));
         assertEquals(0, graph.getSize());
     }
 
     @Test
     void shouldCreateAndReturnEdgesTest() {
-        var graph = new Graph();
-        var vertex1 = new Vertex(UUID.randomUUID(), "1");
-        var vertex2 = new Vertex(UUID.randomUUID(), "2");
+        var graph = new Graph<Vertex>();
+        var vertex1 = new Vertex(UUID.randomUUID());
+        var vertex2 = new Vertex(UUID.randomUUID());
         graph.createEdge(vertex1, vertex2);
         assertEquals(2, graph.getSize());
         var vertex1Edges = graph.getEdges(vertex1);
