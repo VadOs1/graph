@@ -23,21 +23,12 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldAddVertexWithIdNull() {
-        var graph = new Graph<>();
-        var vertex = new Vertex(null);
-        graph.addVertex(vertex);
-        assertEquals(1, graph.getSize());
-    }
-
-    @Test
-    public void testShouldAddVertexWithIdNullOnlyOnce() {
-        var graph = new Graph<>();
-        var vertex1 = new Vertex(null);
-        var vertex2 = new Vertex(null);
-        graph.addVertex(vertex1);
-        graph.addVertex(vertex2);
-        assertEquals(1, graph.getSize());
+    public void testShouldThrowNullPointerExceptionWhenRemovingNullVertex() {
+        assertThrows(NullPointerException.class, () -> {
+            var graph = new Graph<>();
+            assertEquals(0, graph.getSize());
+            graph.removeVertex(null);
+        });
     }
 
     @Test
@@ -71,27 +62,20 @@ public class GraphTest {
     }
 
     @Test
+    public void testShouldAddVertexWithIdNullOnlyOnce() {
+        var graph = new Graph<>();
+        var vertex1 = new Vertex(null);
+        var vertex2 = new Vertex(null);
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        assertEquals(1, graph.getSize());
+    }
+
+    @Test
     public void testShouldDeleteNothingFromEmptyGraph() {
         var graph = new Graph<>();
         assertEquals(0, graph.getSize());
         graph.removeVertex(new Vertex(0L));
-        assertEquals(0, graph.getSize());
-    }
-
-    @Test
-    public void testShouldThrowNullPointerExceptionWhenRemovingNullVertex() {
-        assertThrows(NullPointerException.class, () -> {
-            var graph = new Graph<>();
-            assertEquals(0, graph.getSize());
-            graph.removeVertex(null);
-        });
-    }
-
-    @Test
-    public void testShouldDeleteNothingFromEmptyGraphWithIdNull() {
-        var graph = new Graph<>();
-        assertEquals(0, graph.getSize());
-        graph.removeVertex(new Vertex(null));
         assertEquals(0, graph.getSize());
     }
 
@@ -107,6 +91,14 @@ public class GraphTest {
         assertEquals(3, graph.getSize());
         graph.removeVertex(new Vertex(0L));
         assertEquals(2, graph.getSize());
+    }
+
+    @Test
+    public void testShouldDeleteNothingFromEmptyGraphWithIdNull() {
+        var graph = new Graph<>();
+        assertEquals(0, graph.getSize());
+        graph.removeVertex(new Vertex(null));
+        assertEquals(0, graph.getSize());
     }
 
     @Test
