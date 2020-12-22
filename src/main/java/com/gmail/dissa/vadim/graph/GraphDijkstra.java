@@ -42,15 +42,13 @@ public class GraphDijkstra {
 
     private void processNeighbours(int nodeId) {
         var adjacencyNodes = adjacencyList.get(nodeId);
-        var edgeDistance = -1;
-        var newDistance = -1;
 
         for (Node node : adjacencyNodes) {
             if (!settled.contains(node.getNodeId())) {
-                edgeDistance = node.getCost();
-                newDistance = distances[nodeId] + edgeDistance;
+                var edgeDistance = node.getCost();
+                var newDistance = distances[nodeId] + edgeDistance;
 
-                if (newDistance < distances[node.getNodeId()]){
+                if (newDistance < distances[node.getNodeId()]) {
                     distances[node.getNodeId()] = newDistance;
                 }
 
