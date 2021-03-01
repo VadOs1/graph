@@ -34,8 +34,6 @@ public class GraphDijkstra<T> {
     }
 
     public double findShortestPathCost(T t1, T t2) {
-        // TODO: MAKE FULL COPY OF ADJACENCY VERTICES
-
         // add initial costs map
         Map<T, Double> costs = new HashMap<>();
         adjacencyVerticesWithCost.keySet().forEach(v -> costs.put(v, Double.POSITIVE_INFINITY));
