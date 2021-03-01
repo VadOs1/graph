@@ -31,8 +31,6 @@ public class GraphDijkstra<T> {
     }
 
     public double findShortestPathCost(T t1, T t2) {
-        // TODO: MAKE DEEP COPY of adjacencyVerticesWithCost
-
         // add initial costs map
         Map<T, Double> costs = new HashMap<>();
         adjacencyVerticesWithCost.keySet().forEach(v -> costs.put(v, Double.POSITIVE_INFINITY));
@@ -45,8 +43,7 @@ public class GraphDijkstra<T> {
         Set<T> visited = new HashSet<>();
 
         // send element to the queue
-        PriorityQueue<Q> priorityQueue = new PriorityQueue<>(adjacencyVerticesWithCost.size(),
-                Comparator.comparingDouble(q -> q.priority));
+        PriorityQueue<Q> priorityQueue = new PriorityQueue<>(Comparator.comparingDouble(q -> q.priority));
         priorityQueue.add(new Q(t1, 0));
 
 
