@@ -1,9 +1,6 @@
 package com.gmail.dissa.vadim.graph;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GraphDijkstra<T> {
@@ -42,49 +39,33 @@ public class GraphDijkstra<T> {
         Map<T, T> parents = new HashMap<>();
         adjacencyVerticesWithCost.keySet().forEach(v -> parents.put(v, null));
 
-        // process root element
-        updateCostsAndParents(t1, costs, parents);
-
-        // mark parent as visited
+        // add set to store visited elements
         Set<T> visited = new HashSet<>();
-        visited.add(t1);
 
-        // process
-        T t = getLowestCostVertex(costs, visited);
-        while (t != null) {
+        // send element to the queue
+        PriorityQueue<T> priorityQueue = new PriorityQueue<>();
+        priorityQueue.add(t1, 1);
+
+
+        while (!priorityQueue.isEmpty()) {
+            T t  = priorityQueue.poll();
             visited.add(t);
-            updateCostsAndParents(t, costs, parents);
-            t = getLowestCostVertex(costs, visited);
+            updateCostsAndParents(t, costs, parents, priorityQueue);
         }
 
         return getCost(t1, t2, costs, parents);
     }
 
-    private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents) {
+    private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents, PriorityQueue<T> priorityQueue) {
         var edges = getEdges(t);
         for (Map.Entry<T, Double> entry : edges.entrySet()) {
             var currentCost = costs.get(entry.getKey());
             if (currentCost > entry.getValue()) {
                 costs.put(entry.getKey(), entry.getValue());
                 parents.put(entry.getKey(), t);
+                priorityQueue
             }
         }
-    }
-
-    private T getLowestCostVertex(Map<T, Double> costsMap, Set<T> visited) {
-        var lowestCost = Double.POSITIVE_INFINITY;
-        T lowestCostVertex = null;
-
-        for (Map.Entry<T, Double> entry : costsMap.entrySet()) {
-            var key = entry.getKey();
-            var value = entry.getValue();
-            if (!visited.contains(key) && value < lowestCost) {
-                lowestCost = value;
-                lowestCostVertex = key;
-            }
-        }
-
-        return lowestCostVertex;
     }
 
     private double getCost(T from, T to, Map<T, Double> costs, Map<T, T> parents) {
