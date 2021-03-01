@@ -16,6 +16,10 @@ public class GraphDijkstra<T> {
         adjacencyVertexesWithCost.putIfAbsent(t, new ConcurrentHashMap<>());
     }
 
+    public void removeVertex(T t) {
+        adjacencyVertexesWithCost.keySet().remove(t);
+    }
+
     public int getVertexCount() {
         return adjacencyVertexesWithCost.size();
     }

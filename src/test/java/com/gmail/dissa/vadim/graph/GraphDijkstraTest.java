@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class GraphDijkstraTest {
 
     @Test
-    public void shouldAddVertexAndReturnCorrectVertexCount(){
+    public void textShouldAddVertexAndReturnCorrectVertexCount() {
         var graphDijkstra = new GraphDijkstra<>();
         assertEquals(0, graphDijkstra.getVertexCount());
         var v1 = new Vertex(UUID.randomUUID());
@@ -23,6 +23,17 @@ public class GraphDijkstraTest {
         graphDijkstra.addVertex(v2);
         assertEquals(2, graphDijkstra.getVertexCount());
 
+    }
+
+    @Test
+    public void testShouldRemoveVertexAndReturnCorrectVertexCount() {
+        var graphDijkstra = new GraphDijkstra<>();
+        assertEquals(0, graphDijkstra.getVertexCount());
+        var v1 = new Vertex(UUID.randomUUID());
+        graphDijkstra.addVertex(v1);
+        assertEquals(1, graphDijkstra.getVertexCount());
+        graphDijkstra.removeVertex(v1);
+        assertEquals(0, graphDijkstra.getVertexCount());
     }
 
     @Test
