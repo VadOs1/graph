@@ -2,6 +2,7 @@ package com.gmail.dissa.vadim.graph;
 
 import com.gmail.dissa.vadim.graph.model.Vertex;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,6 +34,8 @@ public class GraphDijkstra<T> {
     }
 
     public double findShortestPathCost(Vertex v1, Vertex v2) {
+        Map<T, Double> costs = new HashMap<>();
+        Map<T, T> parents = new HashMap<>();
         return 0.0;
     }
 }
