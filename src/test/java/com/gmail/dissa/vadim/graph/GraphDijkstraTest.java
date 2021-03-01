@@ -44,10 +44,11 @@ public class GraphDijkstraTest {
         graphDijkstra.addVertex(v1);
         graphDijkstra.addVertex(v2);
         graphDijkstra.createEdge(v1, v2, 1.0);
+        graphDijkstra.createEdge(v1, v2, 2.0);
         assertEquals(2, graphDijkstra.getVertexCount());
         var v1Edges = graphDijkstra.getEdges(v1);
         assertEquals(1, v1Edges.size());
-        assertEquals(1.0, v1Edges.get(v2), 0);
+        assertEquals(2.0, v1Edges.get(v2), 0);
     }
 
 
