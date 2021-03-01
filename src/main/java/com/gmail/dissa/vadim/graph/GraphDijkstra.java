@@ -37,13 +37,18 @@ public class GraphDijkstra<T> {
         // TODO: MAKE FULL COPY OF ADJACENCY VERTICES
         Map<T, Double> costs = createInitialCostsMap(adjacencyVerticesWithCost);
         Map<T, T> parents = createInitialParentsMap(adjacencyVerticesWithCost);
+        updateCosts(t1, costs);
+        updateParents(t1, parents);
         Set<T> visited = new HashSet<>();
+        visited.add(t1);
 
         T t = getLowestCostVertex(costs, visited);
 
-        while(t != null){
+        while (t != null) {
             visited.add(t);
-            t = null;
+            //
+            //
+            t = getLowestCostVertex(costs, visited);;
         }
 
         return 0.0;
@@ -55,10 +60,22 @@ public class GraphDijkstra<T> {
         return map;
     }
 
+    private void updateCosts(T t, Map<T, Double> costs) {
+        var edges = getEdges(t);
+        for (Map.Entry<T, Double> entry : edges.entrySet()) {
+            costs.put(entry.getKey(), entry.getValue());
+        }
+    }
+
     private Map<T, T> createInitialParentsMap(Map<T, Map<T, Double>> adjacencyVerticesWithCost) {
         var map = new HashMap<T, T>();
         adjacencyVerticesWithCost.keySet().forEach(v -> map.put(v, null));
         return map;
+    }
+
+    private void updateParents(T t, Map<T, T> parents) {
+        var edges = getEdges(t);
+        edges.keySet().forEach(v -> parents.put(v, t));
     }
 
     private T getLowestCostVertex(Map<T, Double> costsMap, Set<T> visited) {
