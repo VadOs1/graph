@@ -54,13 +54,21 @@ public class GraphDijkstraTest {
 
     @Test
     public void testShouldFindShortestPathCost() {
+        // GIVEN
         var graphDijkstra = new GraphDijkstra<>();
+
+        // WHEN
         var v1 = new Vertex(UUID.randomUUID());
         var v2 = new Vertex(UUID.randomUUID());
+        var v3 = new Vertex(UUID.randomUUID());
         graphDijkstra.addVertex(v1);
         graphDijkstra.addVertex(v2);
-        graphDijkstra.createEdge(v1, v2, 0.0);
-        var distanceCost = graphDijkstra.findShortestPathCost(v1, v2);
-        assertEquals(0, distanceCost, 0);
+        graphDijkstra.addVertex(v3);
+        graphDijkstra.createEdge(v1, v2, 1.0);
+        graphDijkstra.createEdge(v2, v3, 1.0);
+
+        // THEN
+        var distanceCost = graphDijkstra.findShortestPathCost(v1, v3);
+        assertEquals(3.0, distanceCost, 0);
     }
 }

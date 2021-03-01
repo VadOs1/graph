@@ -33,6 +33,6 @@ public class GraphDijkstra<T> {
     }
 
     public double findShortestPathCost(Vertex v1, Vertex v2) {
-        return 0;
+        return 0.0;
     }
 }
