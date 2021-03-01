@@ -43,12 +43,12 @@ public class GraphDijkstra<T> {
         Set<T> visited = new HashSet<>();
 
         // send element to the queue
-        PriorityQueue<T> priorityQueue = new PriorityQueue<>();
-        priorityQueue.add(t1, 1);
+        PriorityQueue<Q> priorityQueue = new PriorityQueue<>();
+        priorityQueue.add(new Q(t1, 0));
 
 
         while (!priorityQueue.isEmpty()) {
-            T t  = priorityQueue.poll();
+            T t  = (T) priorityQueue.poll();
             visited.add(t);
             updateCostsAndParents(t, costs, parents, priorityQueue);
         }
@@ -56,14 +56,14 @@ public class GraphDijkstra<T> {
         return getCost(t1, t2, costs, parents);
     }
 
-    private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents, PriorityQueue<T> priorityQueue) {
+    private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents, PriorityQueue<Q> priorityQueue) {
         var edges = getEdges(t);
         for (Map.Entry<T, Double> entry : edges.entrySet()) {
             var currentCost = costs.get(entry.getKey());
             if (currentCost > entry.getValue()) {
                 costs.put(entry.getKey(), entry.getValue());
                 parents.put(entry.getKey(), t);
-                priorityQueue
+                priorityQueue.add(new Q(entry.getKey(), costs.get(entry.getKey())));
             }
         }
     }
@@ -82,5 +82,28 @@ public class GraphDijkstra<T> {
             }
         }
         return totalCost;
+    }
+
+    private class Q{
+        public T t;
+        public double priority;
+
+       public Q(T t, double priority){
+           this.t = t;
+           this.priority = priority;
+       }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Q q = (Q) o;
+            return priority == q.priority;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(priority);
+        }
     }
 }
