@@ -37,8 +37,7 @@ public class GraphDijkstra<T> {
         // TODO: MAKE FULL COPY OF ADJACENCY VERTICES
         Map<T, Double> costs = createInitialCostsMap(adjacencyVerticesWithCost);
         Map<T, T> parents = createInitialParentsMap(adjacencyVerticesWithCost);
-        updateCosts(t1, costs);
-        updateParents(t1, parents);
+        updateCostsAndParents(t1, costs, parents);
         Set<T> visited = new HashSet<>();
         visited.add(t1);
 
@@ -46,12 +45,23 @@ public class GraphDijkstra<T> {
 
         while (t != null) {
             visited.add(t);
-            //
-            //
+            updateCostsAndParents(t, costs, parents);
             t = getLowestCostVertex(costs, visited);;
         }
 
-        return 0.0;
+        double cost = 0;
+        var targetNode = t2;
+        while(targetNode != null){
+            var p = parents.get(targetNode);
+            var c = costs.get(targetNode);
+            if(targetNode == t1){
+                targetNode = null;
+            } else {
+                cost += c;
+                targetNode = p;
+            }
+        }
+        return cost;
     }
 
     private Map<T, Double> createInitialCostsMap(Map<T, Map<T, Double>> adjacencyVerticesWithCost) {
@@ -60,10 +70,15 @@ public class GraphDijkstra<T> {
         return map;
     }
 
-    private void updateCosts(T t, Map<T, Double> costs) {
+    private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents) {
         var edges = getEdges(t);
         for (Map.Entry<T, Double> entry : edges.entrySet()) {
-            costs.put(entry.getKey(), entry.getValue());
+            var currentCost = costs.get(entry.getKey());
+            if (currentCost > entry.getValue()){
+                costs.put(entry.getKey(), entry.getValue());
+                parents.put(entry.getKey(), t);
+            }
+
         }
     }
 
@@ -71,11 +86,6 @@ public class GraphDijkstra<T> {
         var map = new HashMap<T, T>();
         adjacencyVerticesWithCost.keySet().forEach(v -> map.put(v, null));
         return map;
-    }
-
-    private void updateParents(T t, Map<T, T> parents) {
-        var edges = getEdges(t);
-        edges.keySet().forEach(v -> parents.put(v, t));
     }
 
     private T getLowestCostVertex(Map<T, Double> costsMap, Set<T> visited) {

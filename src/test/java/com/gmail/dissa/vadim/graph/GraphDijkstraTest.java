@@ -69,6 +69,6 @@ public class GraphDijkstraTest {
 
         // THEN
         var distanceCost = graphDijkstra.findShortestPathCost(v1, v3);
-        assertEquals(3.0, distanceCost, 0);
+        assertEquals(2.0, distanceCost, 0);
     }
 }
