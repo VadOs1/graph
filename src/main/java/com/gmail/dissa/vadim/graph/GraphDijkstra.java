@@ -43,14 +43,14 @@ public class GraphDijkstra<T> {
         Set<T> visited = new HashSet<>();
 
         // send element to the queue
-        PriorityQueue<Q> priorityQueue = new PriorityQueue<>();
+        PriorityQueue<Q> priorityQueue = new PriorityQueue<>(adjacencyVerticesWithCost.size(), Comparator.comparingDouble(q -> q.priority));
         priorityQueue.add(new Q(t1, 0));
 
 
         while (!priorityQueue.isEmpty()) {
-            T t = (T) priorityQueue.poll();
-            visited.add(t);
-            updateCostsAndParents(t, costs, parents, priorityQueue);
+            Q q = priorityQueue.poll();
+            visited.add(q.t);
+            updateCostsAndParents(q.t, costs, parents, priorityQueue);
         }
 
         return getCost(t1, t2, costs, parents);
@@ -84,31 +84,13 @@ public class GraphDijkstra<T> {
         return totalCost;
     }
 
-    public class Q implements Comparator<Q> {
+    public class Q {
         public T t;
         public double priority;
 
         public Q(T t, double priority) {
             this.t = t;
             this.priority = priority;
-        }
-
-        @Override
-        public int compare(Q q1, Q q2) {
-            return Double.compare(q1.priority, q2.priority);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Q q = (Q) o;
-            return priority == q.priority;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(priority);
         }
     }
 }
