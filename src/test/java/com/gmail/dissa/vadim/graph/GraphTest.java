@@ -15,7 +15,7 @@ public class GraphTest {
     @Test
     public void testInitialSizeOfGraphShouldBeZero() {
         Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getSize());
+        assertEquals(0, graph.getVertexCount());
     }
 
     @Test(expected = NullPointerException.class)
@@ -29,7 +29,7 @@ public class GraphTest {
         Graph<Vertex> graph = new Graph<>();
         Vertex vertex = new Vertex(null);
         graph.addVertex(vertex);
-        assertEquals(1, graph.getSize());
+        assertEquals(1, graph.getVertexCount());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class GraphTest {
         Vertex vertex2 = new Vertex(null);
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
-        assertEquals(1, graph.getSize());
+        assertEquals(1, graph.getVertexCount());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class GraphTest {
         Graph<Vertex> graph = new Graph<>();
         Vertex vertex = new Vertex(UUID.randomUUID());
         graph.addVertex(vertex);
-        assertEquals(1, graph.getSize());
+        assertEquals(1, graph.getVertexCount());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class GraphTest {
         Vertex vertex2 = new Vertex(UUID.randomUUID());
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
-        assertEquals(2, graph.getSize());
+        assertEquals(2, graph.getVertexCount());
     }
 
     @Test
@@ -69,30 +69,30 @@ public class GraphTest {
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
         graph.addVertex(vertex3);
-        assertEquals(3, graph.getSize());
+        assertEquals(3, graph.getVertexCount());
     }
 
     @Test
     public void testShouldDeleteNothingFromEmptyGraph() {
         Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getSize());
+        assertEquals(0, graph.getVertexCount());
         graph.removeVertex(new Vertex(UUID.randomUUID()));
-        assertEquals(0, graph.getSize());
+        assertEquals(0, graph.getVertexCount());
     }
 
     @Test(expected = NullPointerException.class)
     public void testShouldThrowNullPointerExceptionWhenRemovingNullVertex() {
         Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getSize());
+        assertEquals(0, graph.getVertexCount());
         graph.removeVertex(null);
     }
 
     @Test
     public void testShouldDeleteNothingFromEmptyGraphWithIdNull() {
         Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getSize());
+        assertEquals(0, graph.getVertexCount());
         graph.removeVertex(new Vertex(null));
-        assertEquals(0, graph.getSize());
+        assertEquals(0, graph.getVertexCount());
     }
 
     @Test
@@ -104,9 +104,9 @@ public class GraphTest {
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
         graph.addVertex(vertex3);
-        assertEquals(3, graph.getSize());
+        assertEquals(3, graph.getVertexCount());
         graph.removeVertex(new Vertex(UUID.fromString(ID)));
-        assertEquals(2, graph.getSize());
+        assertEquals(2, graph.getVertexCount());
     }
 
     @Test
@@ -120,9 +120,9 @@ public class GraphTest {
         graph.addVertex(vertex2);
         graph.addVertex(vertex3);
         graph.addVertex(vertex4);
-        assertEquals(3, graph.getSize());
+        assertEquals(3, graph.getVertexCount());
         graph.removeVertex(new Vertex(null));
-        assertEquals(2, graph.getSize());
+        assertEquals(2, graph.getVertexCount());
     }
 
     @Test
@@ -130,8 +130,10 @@ public class GraphTest {
         Graph<Vertex> graph = new Graph<>();
         Vertex vertex1 = new Vertex(UUID.randomUUID());
         Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
         graph.createEdge(vertex1, vertex2);
-        assertEquals(2, graph.getSize());
+        assertEquals(2, graph.getVertexCount());
         List<Vertex> vertex1Edges = graph.getEdges(vertex1);
         assertNotNull(vertex1Edges);
         assertEquals(1, vertex1Edges.size());

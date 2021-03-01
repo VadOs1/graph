@@ -22,16 +22,14 @@ public class Graph<T> {
     }
 
     public void createEdge(T from, T to) {
-        addVertex(from);
-        addVertex(to);
         adjacencyVertexes.get(from).add(to);
-    }
-
-    public int getSize() {
-        return adjacencyVertexes.size();
     }
 
     public List<T> getEdges(T t) {
         return adjacencyVertexes.get(t);
+    }
+
+    public int getVertexCount() {
+        return adjacencyVertexes.size();
     }
 }
