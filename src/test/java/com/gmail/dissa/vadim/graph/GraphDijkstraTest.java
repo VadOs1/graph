@@ -11,6 +11,17 @@ import static org.junit.Assert.assertEquals;
 public class GraphDijkstraTest {
 
     @Test
+    public void testShouldRemoveVertexAndReturnCorrectVertexCount() {
+        var graphDijkstra = new GraphDijkstra<>();
+        assertEquals(0, graphDijkstra.getVertexCount());
+        var v1 = new Vertex(UUID.randomUUID());
+        graphDijkstra.addVertex(v1);
+        assertEquals(1, graphDijkstra.getVertexCount());
+        graphDijkstra.removeVertex(v1);
+        assertEquals(0, graphDijkstra.getVertexCount());
+    }
+
+    @Test
     public void textShouldAddVertexAndReturnCorrectVertexCount() {
         var graphDijkstra = new GraphDijkstra<>();
         assertEquals(0, graphDijkstra.getVertexCount());
@@ -26,15 +37,19 @@ public class GraphDijkstraTest {
     }
 
     @Test
-    public void testShouldRemoveVertexAndReturnCorrectVertexCount() {
+    public void testShouldCreateAndGetEdges() {
         var graphDijkstra = new GraphDijkstra<>();
-        assertEquals(0, graphDijkstra.getVertexCount());
         var v1 = new Vertex(UUID.randomUUID());
+        var v2 = new Vertex(UUID.randomUUID());
         graphDijkstra.addVertex(v1);
-        assertEquals(1, graphDijkstra.getVertexCount());
-        graphDijkstra.removeVertex(v1);
-        assertEquals(0, graphDijkstra.getVertexCount());
+        graphDijkstra.addVertex(v2);
+        graphDijkstra.createEdge(v1, v2, 1.0);
+        assertEquals(2, graphDijkstra.getVertexCount());
+        var v1Edges = graphDijkstra.getEdges(v1);
+        assertEquals(1, v1Edges.size());
+        assertEquals(1.0, v1Edges.get(v2), 0);
     }
+
 
     @Test
     public void testShouldFindShortestPathCost() {

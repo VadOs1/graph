@@ -20,6 +20,14 @@ public class GraphDijkstra<T> {
         adjacencyVertexesWithCost.keySet().remove(t);
     }
 
+    public void createEdge(T from, T to, Double cost) {
+        adjacencyVertexesWithCost.get(from).put(to, cost);
+    }
+
+    public Map<T, Double> getEdges(T t) {
+        return adjacencyVertexesWithCost.get(t);
+    }
+
     public int getVertexCount() {
         return adjacencyVertexesWithCost.size();
     }
