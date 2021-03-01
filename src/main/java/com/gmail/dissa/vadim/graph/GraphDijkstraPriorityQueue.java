@@ -3,10 +3,10 @@ package com.gmail.dissa.vadim.graph;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GraphDijkstra<T> {
+public class GraphDijkstraPriorityQueue<T> {
     private Map<T, Map<T, Double>> adjacencyVerticesWithCost;
 
-    public GraphDijkstra() {
+    public GraphDijkstraPriorityQueue() {
         this.adjacencyVerticesWithCost = new ConcurrentHashMap<>();
     }
 

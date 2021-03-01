@@ -8,11 +8,11 @@ import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 
 
-public class GraphDijkstraTest {
+public class GraphDijkstraPriorityQueueTest {
 
     @Test
     public void testShouldRemoveVertexAndReturnCorrectVertexCount() {
-        var graphDijkstra = new GraphDijkstra<>();
+        var graphDijkstra = new GraphDijkstraPriorityQueue<>();
         assertEquals(0, graphDijkstra.getVertexCount());
         var v1 = new Vertex(UUID.randomUUID());
         graphDijkstra.addVertex(v1);
@@ -23,7 +23,7 @@ public class GraphDijkstraTest {
 
     @Test
     public void textShouldAddVertexAndReturnCorrectVertexCount() {
-        var graphDijkstra = new GraphDijkstra<>();
+        var graphDijkstra = new GraphDijkstraPriorityQueue<>();
         assertEquals(0, graphDijkstra.getVertexCount());
         var v1 = new Vertex(UUID.randomUUID());
         graphDijkstra.addVertex(v1);
@@ -38,7 +38,7 @@ public class GraphDijkstraTest {
 
     @Test
     public void testShouldCreateAndGetEdges() {
-        var graphDijkstra = new GraphDijkstra<>();
+        var graphDijkstra = new GraphDijkstraPriorityQueue<>();
         var v1 = new Vertex(UUID.randomUUID());
         var v2 = new Vertex(UUID.randomUUID());
         graphDijkstra.addVertex(v1);
@@ -55,7 +55,7 @@ public class GraphDijkstraTest {
     @Test
     public void testShouldFindShortestPathCost() {
         // GIVEN
-        var graphDijkstra = new GraphDijkstra<>();
+        var graphDijkstra = new GraphDijkstraPriorityQueue<>();
 
         // WHEN
         var v1 = new Vertex(UUID.randomUUID());
