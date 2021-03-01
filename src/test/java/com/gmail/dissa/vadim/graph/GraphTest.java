@@ -4,11 +4,13 @@ import com.gmail.dissa.vadim.graph.model.Vertex;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class GraphTest {
+    private static final String ID = "c1a92418-0620-4462-837e-4041c01395ea";
 
     @Test
     public void testInitialSizeOfGraphShouldBeZero() {
@@ -43,7 +45,7 @@ public class GraphTest {
     @Test
     public void testShouldAddVertex() {
         Graph<Vertex> graph = new Graph<>();
-        Vertex vertex = new Vertex(0L);
+        Vertex vertex = new Vertex(UUID.randomUUID());
         graph.addVertex(vertex);
         assertEquals(1, graph.getSize());
     }
@@ -51,8 +53,8 @@ public class GraphTest {
     @Test
     public void testShouldAddTwoVertices() {
         Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(0L);
-        Vertex vertex2 = new Vertex(1L);
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
         assertEquals(2, graph.getSize());
@@ -61,8 +63,8 @@ public class GraphTest {
     @Test
     public void testShouldAddThreeVertices() {
         Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(0L);
-        Vertex vertex2 = new Vertex(1L);
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
         Vertex vertex3 = new Vertex(null);
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
@@ -74,7 +76,7 @@ public class GraphTest {
     public void testShouldDeleteNothingFromEmptyGraph() {
         Graph<Vertex> graph = new Graph<>();
         assertEquals(0, graph.getSize());
-        graph.removeVertex(new Vertex(0L));
+        graph.removeVertex(new Vertex(UUID.randomUUID()));
         assertEquals(0, graph.getSize());
     }
 
@@ -96,22 +98,22 @@ public class GraphTest {
     @Test
     public void testShouldDeleteFromGraph() {
         Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(0L);
-        Vertex vertex2 = new Vertex(1L);
+        Vertex vertex1 = new Vertex(UUID.fromString(ID));
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
         Vertex vertex3 = new Vertex(null);
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
         graph.addVertex(vertex3);
         assertEquals(3, graph.getSize());
-        graph.removeVertex(new Vertex(0L));
+        graph.removeVertex(new Vertex(UUID.fromString(ID)));
         assertEquals(2, graph.getSize());
     }
 
     @Test
     public void testShouldDeleteFromGraphWithIdNull() {
         Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(0L);
-        Vertex vertex2 = new Vertex(1L);
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
         Vertex vertex3 = new Vertex(null);
         Vertex vertex4 = new Vertex(null);
         graph.addVertex(vertex1);
@@ -124,10 +126,10 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldCreateAndReturnEdges(){
+    public void testShouldCreateAndReturnEdges() {
         Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(0L);
-        Vertex vertex2 = new Vertex(1L);
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
         graph.createEdge(vertex1, vertex2);
         assertEquals(2, graph.getSize());
         List<Vertex> vertex1Edges = graph.getEdges(vertex1);
