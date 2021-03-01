@@ -60,6 +60,17 @@ public class GraphDijkstra<T> {
         return getCost(t1, t2, costs, parents);
     }
 
+    private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents) {
+        var edges = getEdges(t);
+        for (Map.Entry<T, Double> entry : edges.entrySet()) {
+            var currentCost = costs.get(entry.getKey());
+            if (currentCost > entry.getValue()) {
+                costs.put(entry.getKey(), entry.getValue());
+                parents.put(entry.getKey(), t);
+            }
+        }
+    }
+
     private T getLowestCostVertex(Map<T, Double> costsMap, Set<T> visited) {
         var lowestCost = Double.POSITIVE_INFINITY;
         T lowestCostVertex = null;
@@ -74,18 +85,6 @@ public class GraphDijkstra<T> {
         }
 
         return lowestCostVertex;
-    }
-
-    private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents) {
-        var edges = getEdges(t);
-        for (Map.Entry<T, Double> entry : edges.entrySet()) {
-            var currentCost = costs.get(entry.getKey());
-            if (currentCost > entry.getValue()) {
-                costs.put(entry.getKey(), entry.getValue());
-                parents.put(entry.getKey(), t);
-            }
-
-        }
     }
 
     private double getCost(T from, T to, Map<T, Double> costs, Map<T, T> parents) {
