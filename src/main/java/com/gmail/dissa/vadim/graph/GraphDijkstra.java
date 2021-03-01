@@ -12,6 +12,14 @@ public class GraphDijkstra<T> {
         this.adjacencyVertexesWithCost = new ConcurrentHashMap<>();
     }
 
+    public void addVertex(T t) {
+        adjacencyVertexesWithCost.putIfAbsent(t, new ConcurrentHashMap<>());
+    }
+
+    public int getVertexCount() {
+        return adjacencyVertexesWithCost.size();
+    }
+
     public double findShortestPathCost(Vertex v1, Vertex v2) {
         return 0;
     }
