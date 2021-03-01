@@ -49,8 +49,11 @@ public class GraphDijkstra<T> {
 
         while (!priorityQueue.isEmpty()) {
             Q q = priorityQueue.poll();
-            visited.add(q.t);
-            updateCostsAndParents(q.t, costs, parents, priorityQueue);
+            T t = q.t;
+            if(!visited.contains(t)){
+                visited.add(q.t);
+                updateCostsAndParents(q.t, costs, parents, priorityQueue);
+            }
         }
 
         return getCost(t1, t2, costs, parents);
@@ -63,8 +66,8 @@ public class GraphDijkstra<T> {
             if (currentCost > entry.getValue()) {
                 costs.put(entry.getKey(), entry.getValue());
                 parents.put(entry.getKey(), t);
-                priorityQueue.add(new Q(entry.getKey(), costs.get(entry.getKey())));
             }
+            priorityQueue.add(new Q(entry.getKey(), costs.get(entry.getKey())));
         }
     }
 

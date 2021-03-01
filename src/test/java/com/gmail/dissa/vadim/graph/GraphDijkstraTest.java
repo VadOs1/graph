@@ -86,6 +86,7 @@ public class GraphDijkstraTest {
         graphDijkstra.createEdge(v5, v7, 1.0);
         graphDijkstra.createEdge(v7, v8, 1.0);
         graphDijkstra.createEdge(v8, v9, 1.0);
+        graphDijkstra.createEdge(v9, v8, 1.0);
 
         // THEN
         var distanceCost = graphDijkstra.findShortestPathCost(v1, v9);
