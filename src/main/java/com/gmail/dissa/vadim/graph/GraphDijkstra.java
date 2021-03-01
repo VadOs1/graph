@@ -48,7 +48,7 @@ public class GraphDijkstra<T> {
 
 
         while (!priorityQueue.isEmpty()) {
-            T t  = (T) priorityQueue.poll();
+            T t = (T) priorityQueue.poll();
             visited.add(t);
             updateCostsAndParents(t, costs, parents, priorityQueue);
         }
@@ -84,14 +84,19 @@ public class GraphDijkstra<T> {
         return totalCost;
     }
 
-    private class Q{
+    public class Q implements Comparator<Q> {
         public T t;
         public double priority;
 
-       public Q(T t, double priority){
-           this.t = t;
-           this.priority = priority;
-       }
+        public Q(T t, double priority) {
+            this.t = t;
+            this.priority = priority;
+        }
+
+        @Override
+        public int compare(Q q1, Q q2) {
+            return Double.compare(q1.priority, q2.priority);
+        }
 
         @Override
         public boolean equals(Object o) {
