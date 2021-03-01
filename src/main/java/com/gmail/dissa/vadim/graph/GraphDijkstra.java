@@ -35,57 +35,31 @@ public class GraphDijkstra<T> {
 
     public double findShortestPathCost(T t1, T t2) {
         // TODO: MAKE FULL COPY OF ADJACENCY VERTICES
-        Map<T, Double> costs = createInitialCostsMap(adjacencyVerticesWithCost);
-        Map<T, T> parents = createInitialParentsMap(adjacencyVerticesWithCost);
+
+        // add initial costs map
+        Map<T, Double> costs = new HashMap<>();
+        adjacencyVerticesWithCost.keySet().forEach(v -> costs.put(v, Double.POSITIVE_INFINITY));
+
+        // add initial parents map
+        Map<T, T> parents = new HashMap<>();
+        adjacencyVerticesWithCost.keySet().forEach(v -> parents.put(v, null));
+
+        // process root element
         updateCostsAndParents(t1, costs, parents);
+
+        // mark parent as visited
         Set<T> visited = new HashSet<>();
         visited.add(t1);
 
+        // process
         T t = getLowestCostVertex(costs, visited);
-
         while (t != null) {
             visited.add(t);
             updateCostsAndParents(t, costs, parents);
-            t = getLowestCostVertex(costs, visited);;
+            t = getLowestCostVertex(costs, visited);
         }
 
-        double cost = 0;
-        var targetNode = t2;
-        while(targetNode != null){
-            var p = parents.get(targetNode);
-            var c = costs.get(targetNode);
-            if(targetNode == t1){
-                targetNode = null;
-            } else {
-                cost += c;
-                targetNode = p;
-            }
-        }
-        return cost;
-    }
-
-    private Map<T, Double> createInitialCostsMap(Map<T, Map<T, Double>> adjacencyVerticesWithCost) {
-        var map = new HashMap<T, Double>();
-        adjacencyVerticesWithCost.keySet().forEach(v -> map.put(v, Double.POSITIVE_INFINITY));
-        return map;
-    }
-
-    private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents) {
-        var edges = getEdges(t);
-        for (Map.Entry<T, Double> entry : edges.entrySet()) {
-            var currentCost = costs.get(entry.getKey());
-            if (currentCost > entry.getValue()){
-                costs.put(entry.getKey(), entry.getValue());
-                parents.put(entry.getKey(), t);
-            }
-
-        }
-    }
-
-    private Map<T, T> createInitialParentsMap(Map<T, Map<T, Double>> adjacencyVerticesWithCost) {
-        var map = new HashMap<T, T>();
-        adjacencyVerticesWithCost.keySet().forEach(v -> map.put(v, null));
-        return map;
+        return getCost(t1, t2, costs, parents);
     }
 
     private T getLowestCostVertex(Map<T, Double> costsMap, Set<T> visited) {
@@ -102,5 +76,33 @@ public class GraphDijkstra<T> {
         }
 
         return lowestCostVertex;
+    }
+
+    private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents) {
+        var edges = getEdges(t);
+        for (Map.Entry<T, Double> entry : edges.entrySet()) {
+            var currentCost = costs.get(entry.getKey());
+            if (currentCost > entry.getValue()) {
+                costs.put(entry.getKey(), entry.getValue());
+                parents.put(entry.getKey(), t);
+            }
+
+        }
+    }
+
+    private double getCost(T from, T to, Map<T, Double> costs, Map<T, T> parents) {
+        double totalCost = 0;
+        var targetNode = to;
+        while (targetNode != null) {
+            var parent = parents.get(targetNode);
+            var cost = costs.get(targetNode);
+            if (targetNode == from) {
+                targetNode = null;
+            } else {
+                totalCost += cost;
+                targetNode = parent;
+            }
+        }
+        return totalCost;
     }
 }
