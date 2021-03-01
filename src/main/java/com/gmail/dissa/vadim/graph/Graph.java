@@ -13,10 +13,6 @@ public class Graph<T> {
         adjacencyVertexes = new ConcurrentHashMap<>();
     }
 
-    public int getSize() {
-        return adjacencyVertexes.size();
-    }
-
     public void addVertex(T t) {
         adjacencyVertexes.putIfAbsent(t, new ArrayList<>());
     }
@@ -29,6 +25,10 @@ public class Graph<T> {
         addVertex(from);
         addVertex(to);
         adjacencyVertexes.get(from).add(to);
+    }
+
+    public int getSize() {
+        return adjacencyVertexes.size();
     }
 
     public List<T> getEdges(T t) {
