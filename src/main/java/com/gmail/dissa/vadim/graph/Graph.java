@@ -1,9 +1,9 @@
 package com.gmail.dissa.vadim.graph;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Graph<T> {
 
@@ -14,7 +14,7 @@ public class Graph<T> {
     }
 
     public void addVertex(T t) {
-        adjacencyVertexes.putIfAbsent(t, new ArrayList<>());
+        adjacencyVertexes.putIfAbsent(t, new CopyOnWriteArrayList<>());
     }
 
     public void removeVertex(T t) {
