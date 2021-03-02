@@ -51,8 +51,8 @@ public class GraphDijkstraPriorityQueue<T> {
             Q q = priorityQueue.poll();
             T t = q.t;
             if(!visited.contains(t)){
-                visited.add(q.t);
-                updateCostsAndParents(q.t, costs, parents, priorityQueue);
+                visited.add(t);
+                updateCostsAndParents(t, costs, parents, priorityQueue);
             }
         }
 
