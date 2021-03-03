@@ -140,7 +140,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testIsDependantExistShouldReturnCorrectValues() {
+    public void testIsReferencedShouldReturnCorrectValues() {
         Graph<Vertex> graph = new Graph<>();
         Vertex vertex1 = new Vertex(UUID.randomUUID());
         Vertex vertex2 = new Vertex(UUID.randomUUID());
