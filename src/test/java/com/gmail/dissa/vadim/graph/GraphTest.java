@@ -192,4 +192,16 @@ public class GraphTest {
         assertTrue(isRemoved);
         assertEquals(1, graph.getVertexCount());
     }
+
+    @Test
+    public void testShouldNotRemoveVertexWithUsageCheck() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.createEdge(vertex1, vertex2);
+        boolean isRemoved = graph.removeVertexWithUsageCheck(vertex2);
+        assertFalse(isRemoved);
+    }
 }
