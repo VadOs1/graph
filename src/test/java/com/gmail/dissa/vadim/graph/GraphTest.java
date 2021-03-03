@@ -72,59 +72,6 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldDeleteNothingFromEmptyGraph() {
-        Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getVertexCount());
-        graph.removeVertex(new Vertex(UUID.randomUUID()));
-        assertEquals(0, graph.getVertexCount());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testShouldThrowNullPointerExceptionWhenRemovingNullVertex() {
-        Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getVertexCount());
-        graph.removeVertex(null);
-    }
-
-    @Test
-    public void testShouldDeleteNothingFromEmptyGraphWithIdNull() {
-        Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getVertexCount());
-        graph.removeVertex(new Vertex(null));
-        assertEquals(0, graph.getVertexCount());
-    }
-
-    @Test
-    public void testShouldDeleteFromGraph() {
-        Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(UUID.fromString(ID));
-        Vertex vertex2 = new Vertex(UUID.randomUUID());
-        Vertex vertex3 = new Vertex(null);
-        graph.addVertex(vertex1);
-        graph.addVertex(vertex2);
-        graph.addVertex(vertex3);
-        assertEquals(3, graph.getVertexCount());
-        graph.removeVertex(new Vertex(UUID.fromString(ID)));
-        assertEquals(2, graph.getVertexCount());
-    }
-
-    @Test
-    public void testShouldDeleteFromGraphWithIdNull() {
-        Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(UUID.randomUUID());
-        Vertex vertex2 = new Vertex(UUID.randomUUID());
-        Vertex vertex3 = new Vertex(null);
-        Vertex vertex4 = new Vertex(null);
-        graph.addVertex(vertex1);
-        graph.addVertex(vertex2);
-        graph.addVertex(vertex3);
-        graph.addVertex(vertex4);
-        assertEquals(3, graph.getVertexCount());
-        graph.removeVertex(new Vertex(null));
-        assertEquals(2, graph.getVertexCount());
-    }
-
-    @Test
     public void testShouldCreateAndReturnEdges() {
         Graph<Vertex> graph = new Graph<>();
         Vertex vertex1 = new Vertex(UUID.randomUUID());
@@ -155,18 +102,6 @@ public class GraphTest {
         Vertex vertex2 = new Vertex(UUID.randomUUID());
         graph.addVertex(vertex2);
         graph.createEdge(vertex1, vertex2);
-    }
-
-    @Test
-    public void testIsReferencedShouldReturnCorrectValues() {
-        Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(UUID.randomUUID());
-        Vertex vertex2 = new Vertex(UUID.randomUUID());
-        graph.addVertex(vertex1);
-        graph.addVertex(vertex2);
-        graph.createEdge(vertex1, vertex2);
-        assertFalse(graph.isReferenced(vertex1));
-        assertTrue(graph.isReferenced(vertex2));
     }
 
     @Test
@@ -206,7 +141,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldKeepEdgesWhenTheSameVertexAddedMultipleTimes(){
+    public void testShouldKeepEdgesWhenTheSameVertexAddedMultipleTimes() {
         Graph<Vertex> graph = new Graph<>();
         Vertex vertex1 = new Vertex(UUID.randomUUID());
         Vertex vertex2 = new Vertex(UUID.randomUUID());
@@ -219,7 +154,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldNotCreateMultipleEdgesForTheSameVertex(){
+    public void testShouldNotCreateMultipleEdgesForTheSameVertex() {
         Graph<Vertex> graph = new Graph<>();
         Vertex vertex1 = new Vertex(UUID.randomUUID());
         Vertex vertex2 = new Vertex(UUID.randomUUID());

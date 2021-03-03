@@ -23,10 +23,6 @@ public class Graph<T> {
         adjacencyVertices.putIfAbsent(t, ConcurrentHashMap.newKeySet());
     }
 
-    public void removeVertex(T t) {
-        adjacencyVertices.keySet().remove(t);
-    }
-
     public void createEdge(T from, T to) {
         Set<T> edgesFrom = adjacencyVertices.get(from);
         if (edgesFrom == null) {
@@ -48,15 +44,6 @@ public class Graph<T> {
         return adjacencyVertices.size();
     }
 
-    public boolean isReferenced(T t) {
-        for (Map.Entry<T, Set<T>> entry : adjacencyVertices.entrySet()) {
-            if (!entry.getKey().equals(t) && entry.getValue().contains(t)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean removeVertexWithUsageCheck(T t) {
         if (isReferenced(t)) {
             return false;
@@ -68,5 +55,18 @@ public class Graph<T> {
             }
             return true;
         }
+    }
+
+    private boolean isReferenced(T t) {
+        for (Map.Entry<T, Set<T>> entry : adjacencyVertices.entrySet()) {
+            if (!entry.getKey().equals(t) && entry.getValue().contains(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void removeVertex(T t) {
+        adjacencyVertices.keySet().remove(t);
     }
 }
