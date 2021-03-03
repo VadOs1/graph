@@ -92,4 +92,15 @@ public class GraphDijkstraPriorityQueueTest {
         var distanceCost = graphDijkstra.findShortestPathCost(v1, v9);
         assertEquals(4.0, distanceCost, 0);
     }
+
+    @Test
+    public void testMatrix() {
+        // TODO: IMPLEMENT ME
+        char[][] graph = new char[][]{
+                {'1', '1', 'O', '1'},
+                {'1', '1', '1', '1'},
+                {'1', 'X', '1', '1'},
+                {'1', '1', '1', '1'}
+        };
+    }
 }

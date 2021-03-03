@@ -192,14 +192,4 @@ public class GraphTest {
         assertTrue(isRemoved);
         assertEquals(1, graph.getVertexCount());
     }
-
-    @Test
-    public void testMatrix() {
-        char[][] graph = new char[][]{
-                {'1', '1', 'O', '1'},
-                {'1', '1', '1', '1'},
-                {'1', 'X', '1', '1'},
-                {'1', '1', '1', '1'}
-        };
-    }
 }
