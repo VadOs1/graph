@@ -32,7 +32,7 @@ public class Graph<T> {
         return adjacencyVertexes.size();
     }
 
-    public boolean isDependantExist(T t) {
+    public boolean isReferenced(T t) {
         for (Map.Entry<T, Set<T>> entry : adjacencyVertexes.entrySet()) {
             if (!entry.getKey().equals(t) && entry.getValue().contains(t)) {
                 return true;

@@ -147,8 +147,8 @@ public class GraphTest {
         graph.addVertex(vertex1);
         graph.addVertex(vertex2);
         graph.createEdge(vertex1, vertex2);
-        assertFalse(graph.isDependantExist(vertex1));
-        assertTrue(graph.isDependantExist(vertex2));
+        assertFalse(graph.isReferenced(vertex1));
+        assertTrue(graph.isReferenced(vertex2));
     }
 
     @Test
