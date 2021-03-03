@@ -217,4 +217,16 @@ public class GraphTest {
         graph.addVertex(vertex1);
         assertEquals(1, graph.getEdges(vertex1).size());
     }
+
+    @Test
+    public void testShouldNotCreateMultipleEdgesForTheSameVertex(){
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.createEdge(vertex1, vertex2);
+        graph.createEdge(vertex1, vertex2);
+        assertEquals(1, graph.getEdges(vertex1).size());
+    }
 }
