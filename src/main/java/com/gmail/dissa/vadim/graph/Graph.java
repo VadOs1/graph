@@ -25,8 +25,8 @@ public class Graph<T> {
     }
 
     public synchronized void createEdge(T from, T to) {
-        addVertex(from);
-        addVertex(to);
+        checkIfExist(from);
+        checkIfExist(to);
         adjacencyVertices.get(from).add(to);
     }
 
