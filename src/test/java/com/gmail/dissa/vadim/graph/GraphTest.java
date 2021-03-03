@@ -139,6 +139,24 @@ public class GraphTest {
         assertTrue(vertex1Edges.contains(vertex2));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testShouldThrowExceptionWhenNoToVertexExistInGraph() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.createEdge(vertex1, vertex2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testShouldThrowExceptionWhenNoVertexFromExistInGraph() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex2);
+        graph.createEdge(vertex1, vertex2);
+    }
+
     @Test
     public void testIsReferencedShouldReturnCorrectValues() {
         Graph<Vertex> graph = new Graph<>();

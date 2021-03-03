@@ -21,7 +21,16 @@ public class Graph<T> {
     }
 
     public void createEdge(T from, T to) {
-        adjacencyVertices.get(from).add(to);
+        Set<T> edgesFrom = adjacencyVertices.get(from);
+        if(edgesFrom == null){
+            throw new IllegalArgumentException("From doesn't exist");
+        }
+
+        Set<T> edgesTo = adjacencyVertices.get(to);
+        if(edgesTo == null){
+            throw new IllegalArgumentException("To doesn't exist");
+        }
+        edgesFrom.add(to);
     }
 
     public Set<T> getEdges(T t) {
