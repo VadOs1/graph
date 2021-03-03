@@ -48,7 +48,7 @@ public class Graph<T> {
             Set<T> edges = getEdges(t);
             removeVertex(t);
             for (T edge : edges) {
-                removeVertexWithUsageCheck(t);
+                removeVertexWithUsageCheck(edge);
             }
             return true;
         }

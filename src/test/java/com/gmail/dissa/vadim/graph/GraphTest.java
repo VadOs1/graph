@@ -152,6 +152,30 @@ public class GraphTest {
     }
 
     @Test
+    public void testShouldRemoveVertexWithUsageCheck() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        Vertex vertex3 = new Vertex(UUID.randomUUID());
+        Vertex vertex4 = new Vertex(UUID.randomUUID());
+        Vertex vertex5 = new Vertex(UUID.randomUUID());
+        Vertex vertex6 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.addVertex(vertex3);
+        graph.addVertex(vertex4);
+        graph.addVertex(vertex5);
+        graph.addVertex(vertex6);
+        graph.createEdge(vertex1, vertex2);
+        graph.createEdge(vertex2, vertex3);
+        graph.createEdge(vertex3, vertex4);
+        graph.createEdge(vertex4, vertex5);
+        boolean isRemoved = graph.removeVertexWithUsageCheck(vertex1);
+        assertTrue(isRemoved);
+        assertEquals(1, graph.getVertexCount());
+    }
+
+    @Test
     public void testMatrix() {
         char[][] graph = new char[][]{
                 {'1', '1', 'O', '1'},
