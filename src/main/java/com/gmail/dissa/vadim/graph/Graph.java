@@ -1,20 +1,19 @@
 package com.gmail.dissa.vadim.graph;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Graph<T> {
 
-    private Map<T, List<T>> adjacencyVertexes;
+    private Map<T, Set<T>> adjacencyVertexes;
 
     public Graph() {
         adjacencyVertexes = new ConcurrentHashMap<>();
     }
 
     public void addVertex(T t) {
-        adjacencyVertexes.putIfAbsent(t, new CopyOnWriteArrayList<>());
+        adjacencyVertexes.putIfAbsent(t, ConcurrentHashMap.newKeySet());
     }
 
     public void removeVertex(T t) {
@@ -25,11 +24,20 @@ public class Graph<T> {
         adjacencyVertexes.get(from).add(to);
     }
 
-    public List<T> getEdges(T t) {
+    public Set<T> getEdges(T t) {
         return adjacencyVertexes.get(t);
     }
 
     public int getVertexCount() {
         return adjacencyVertexes.size();
+    }
+
+    public boolean isDependantExist(T t) {
+        for (var entrySet : adjacencyVertexes.entrySet()) {
+            if (!entrySet.getKey().equals(t) && entrySet.getValue().contains(t)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

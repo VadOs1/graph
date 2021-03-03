@@ -3,11 +3,10 @@ package com.gmail.dissa.vadim.graph;
 import com.gmail.dissa.vadim.graph.model.Vertex;
 import org.junit.Test;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class GraphTest {
     private static final String ID = "c1a92418-0620-4462-837e-4041c01395ea";
@@ -134,10 +133,10 @@ public class GraphTest {
         graph.addVertex(vertex2);
         graph.createEdge(vertex1, vertex2);
         assertEquals(2, graph.getVertexCount());
-        List<Vertex> vertex1Edges = graph.getEdges(vertex1);
+        Set<Vertex> vertex1Edges = graph.getEdges(vertex1);
         assertNotNull(vertex1Edges);
         assertEquals(1, vertex1Edges.size());
-        assertEquals(vertex2, vertex1Edges.get(0));
+        assertTrue(vertex1Edges.contains(vertex2));
     }
 
     @Test
