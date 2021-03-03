@@ -3,11 +3,10 @@ package com.gmail.dissa.vadim.graph;
 import com.gmail.dissa.vadim.graph.model.Vertex;
 import org.junit.Test;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class GraphTest {
     private static final String ID = "c1a92418-0620-4462-837e-4041c01395ea";
@@ -73,59 +72,6 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldDeleteNothingFromEmptyGraph() {
-        Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getVertexCount());
-        graph.removeVertex(new Vertex(UUID.randomUUID()));
-        assertEquals(0, graph.getVertexCount());
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testShouldThrowNullPointerExceptionWhenRemovingNullVertex() {
-        Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getVertexCount());
-        graph.removeVertex(null);
-    }
-
-    @Test
-    public void testShouldDeleteNothingFromEmptyGraphWithIdNull() {
-        Graph<Vertex> graph = new Graph<>();
-        assertEquals(0, graph.getVertexCount());
-        graph.removeVertex(new Vertex(null));
-        assertEquals(0, graph.getVertexCount());
-    }
-
-    @Test
-    public void testShouldDeleteFromGraph() {
-        Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(UUID.fromString(ID));
-        Vertex vertex2 = new Vertex(UUID.randomUUID());
-        Vertex vertex3 = new Vertex(null);
-        graph.addVertex(vertex1);
-        graph.addVertex(vertex2);
-        graph.addVertex(vertex3);
-        assertEquals(3, graph.getVertexCount());
-        graph.removeVertex(new Vertex(UUID.fromString(ID)));
-        assertEquals(2, graph.getVertexCount());
-    }
-
-    @Test
-    public void testShouldDeleteFromGraphWithIdNull() {
-        Graph<Vertex> graph = new Graph<>();
-        Vertex vertex1 = new Vertex(UUID.randomUUID());
-        Vertex vertex2 = new Vertex(UUID.randomUUID());
-        Vertex vertex3 = new Vertex(null);
-        Vertex vertex4 = new Vertex(null);
-        graph.addVertex(vertex1);
-        graph.addVertex(vertex2);
-        graph.addVertex(vertex3);
-        graph.addVertex(vertex4);
-        assertEquals(3, graph.getVertexCount());
-        graph.removeVertex(new Vertex(null));
-        assertEquals(2, graph.getVertexCount());
-    }
-
-    @Test
     public void testShouldCreateAndReturnEdges() {
         Graph<Vertex> graph = new Graph<>();
         Vertex vertex1 = new Vertex(UUID.randomUUID());
@@ -134,19 +80,88 @@ public class GraphTest {
         graph.addVertex(vertex2);
         graph.createEdge(vertex1, vertex2);
         assertEquals(2, graph.getVertexCount());
-        List<Vertex> vertex1Edges = graph.getEdges(vertex1);
+        Set<Vertex> vertex1Edges = graph.getEdges(vertex1);
         assertNotNull(vertex1Edges);
         assertEquals(1, vertex1Edges.size());
-        assertEquals(vertex2, vertex1Edges.get(0));
+        assertTrue(vertex1Edges.contains(vertex2));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testShouldThrowExceptionWhenNoToVertexExistInGraph() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.createEdge(vertex1, vertex2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testShouldThrowExceptionWhenNoVertexFromExistInGraph() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex2);
+        graph.createEdge(vertex1, vertex2);
     }
 
     @Test
-    public void testMatrix() {
-        char graph[][] = new char[][]{
-                {'1', '1', 'O', '1'},
-                {'1', '1', '1', '1'},
-                {'1', 'X', '1', '1'},
-                {'1', '1', '1', '1'}
-        };
+    public void testShouldRemoveVertexWithUsageCheck() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        Vertex vertex3 = new Vertex(UUID.randomUUID());
+        Vertex vertex4 = new Vertex(UUID.randomUUID());
+        Vertex vertex5 = new Vertex(UUID.randomUUID());
+        Vertex vertex6 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.addVertex(vertex3);
+        graph.addVertex(vertex4);
+        graph.addVertex(vertex5);
+        graph.addVertex(vertex6);
+        graph.createEdge(vertex1, vertex2);
+        graph.createEdge(vertex2, vertex3);
+        graph.createEdge(vertex3, vertex4);
+        graph.createEdge(vertex4, vertex5);
+        boolean isRemoved = graph.removeVertexWithUsageCheck(vertex1);
+        assertTrue(isRemoved);
+        assertEquals(1, graph.getVertexCount());
+    }
+
+    @Test
+    public void testShouldNotRemoveVertexWithUsageCheck() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.createEdge(vertex1, vertex2);
+        boolean isRemoved = graph.removeVertexWithUsageCheck(vertex2);
+        assertFalse(isRemoved);
+    }
+
+    @Test
+    public void testShouldKeepEdgesWhenTheSameVertexAddedMultipleTimes() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.createEdge(vertex1, vertex2);
+        assertEquals(1, graph.getEdges(vertex1).size());
+        graph.addVertex(vertex1);
+        assertEquals(1, graph.getEdges(vertex1).size());
+    }
+
+    @Test
+    public void testShouldNotCreateMultipleEdgesForTheSameVertex() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.createEdge(vertex1, vertex2);
+        graph.createEdge(vertex1, vertex2);
+        assertEquals(1, graph.getEdges(vertex1).size());
     }
 }
