@@ -5,17 +5,14 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- Implementation:
- - get packages and dependent packages
- - create objects for each package
- - call add vertex for each package
- - call createEdge for each package - dependent
- - call removeVertexWithUsageCheck when package needs to be deleted
+ * Implementation:
+ * - get packages and dependent packages
+ * - create objects for each package
+ * - call add vertex for each package
+ * - call createEdge for each package - dependent
+ * - call removeVertexWithUsageCheck when package needs to be deleted
  */
 public class Graph<T> {
-
-
-
     private final Map<T, Set<T>> adjacencyVertices;
 
     public Graph() {
@@ -32,12 +29,12 @@ public class Graph<T> {
 
     public void createEdge(T from, T to) {
         Set<T> edgesFrom = adjacencyVertices.get(from);
-        if(edgesFrom == null){
+        if (edgesFrom == null) {
             throw new IllegalArgumentException("From doesn't exist");
         }
 
         Set<T> edgesTo = adjacencyVertices.get(to);
-        if(edgesTo == null){
+        if (edgesTo == null) {
             throw new IllegalArgumentException("To doesn't exist");
         }
         edgesFrom.add(to);
