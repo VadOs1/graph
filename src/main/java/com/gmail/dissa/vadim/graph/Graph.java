@@ -33,8 +33,8 @@ public class Graph<T> {
     }
 
     public boolean isDependantExist(T t) {
-        for (var entrySet : adjacencyVertexes.entrySet()) {
-            if (!entrySet.getKey().equals(t) && entrySet.getValue().contains(t)) {
+        for (Map.Entry<T, Set<T>> entry : adjacencyVertexes.entrySet()) {
+            if (!entry.getKey().equals(t) && entry.getValue().contains(t)) {
                 return true;
             }
         }
