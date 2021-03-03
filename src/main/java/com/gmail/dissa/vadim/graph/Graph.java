@@ -24,16 +24,9 @@ public class Graph<T> {
     }
 
     public void createEdge(T from, T to) {
-        Set<T> edgesFrom = adjacencyVertices.get(from);
-        if (edgesFrom == null) {
-            throw new IllegalArgumentException("From doesn't exist");
-        }
-
-        Set<T> edgesTo = adjacencyVertices.get(to);
-        if (edgesTo == null) {
-            throw new IllegalArgumentException("To doesn't exist");
-        }
-        edgesFrom.add(to);
+        checkIfExist(from);
+        checkIfExist(to);
+        adjacencyVertices.get(from).add(to);
     }
 
     public Set<T> getEdges(T t) {
@@ -45,6 +38,7 @@ public class Graph<T> {
     }
 
     public boolean removeVertexWithUsageCheck(T t) {
+        checkIfExist(t);
         if (isReferenced(t)) {
             return false;
         } else {
@@ -64,5 +58,12 @@ public class Graph<T> {
             }
         }
         return false;
+    }
+
+    private void checkIfExist(T t){
+        Set<T> edges = adjacencyVertices.get(t);
+        if (edges == null) {
+            throw new IllegalArgumentException("Doesn't exist");
+        }
     }
 }
