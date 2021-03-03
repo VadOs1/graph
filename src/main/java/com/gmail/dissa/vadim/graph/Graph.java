@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Graph<T> {
 
-    private Map<T, Set<T>> adjacencyVertices;
+    private final Map<T, Set<T>> adjacencyVertices;
 
     public Graph() {
         adjacencyVertices = new ConcurrentHashMap<>();
