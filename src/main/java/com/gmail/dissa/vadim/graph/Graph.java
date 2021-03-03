@@ -49,7 +49,7 @@ public class Graph<T> {
             return false;
         } else {
             Set<T> edges = getEdges(t);
-            removeVertex(t);
+            adjacencyVertices.keySet().remove(t);
             for (T edge : edges) {
                 removeVertexWithUsageCheck(edge);
             }
@@ -64,9 +64,5 @@ public class Graph<T> {
             }
         }
         return false;
-    }
-
-    private void removeVertex(T t) {
-        adjacencyVertices.keySet().remove(t);
     }
 }
