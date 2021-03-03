@@ -6,34 +6,34 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Graph<T> {
 
-    private Map<T, Set<T>> adjacencyVertexes;
+    private Map<T, Set<T>> adjacencyVertices;
 
     public Graph() {
-        adjacencyVertexes = new ConcurrentHashMap<>();
+        adjacencyVertices = new ConcurrentHashMap<>();
     }
 
     public void addVertex(T t) {
-        adjacencyVertexes.putIfAbsent(t, ConcurrentHashMap.newKeySet());
+        adjacencyVertices.putIfAbsent(t, ConcurrentHashMap.newKeySet());
     }
 
     public void removeVertex(T t) {
-        adjacencyVertexes.keySet().remove(t);
+        adjacencyVertices.keySet().remove(t);
     }
 
     public void createEdge(T from, T to) {
-        adjacencyVertexes.get(from).add(to);
+        adjacencyVertices.get(from).add(to);
     }
 
     public Set<T> getEdges(T t) {
-        return adjacencyVertexes.get(t);
+        return adjacencyVertices.get(t);
     }
 
     public int getVertexCount() {
-        return adjacencyVertexes.size();
+        return adjacencyVertices.size();
     }
 
     public boolean isReferenced(T t) {
-        for (Map.Entry<T, Set<T>> entry : adjacencyVertexes.entrySet()) {
+        for (Map.Entry<T, Set<T>> entry : adjacencyVertices.entrySet()) {
             if (!entry.getKey().equals(t) && entry.getValue().contains(t)) {
                 return true;
             }
