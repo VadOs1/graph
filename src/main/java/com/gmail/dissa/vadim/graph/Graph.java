@@ -4,16 +4,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ Implementation:
+ - get packages and dependent packages
+ - create objects for each package
+ - call add vertex for each package
+ - call createEdge for each package - dependent
+ - call removeVertexWithUsageCheck when package needs to be deleted
+ */
 public class Graph<T> {
 
-    /*
-    Implementation:
-        - get packages and dependent packages
-        - create objects for each package
-        - call add vertex for each package
-        - call createEdge for each package - dependent
-        - call removeVertexWithUsageCheck when package needs to be deleted
-     */
+
 
     private final Map<T, Set<T>> adjacencyVertices;
 
