@@ -40,4 +40,17 @@ public class Graph<T> {
         }
         return false;
     }
+
+    public boolean removeVertexWithUsageCheck(T t) {
+        if (isReferenced(t)) {
+            return false;
+        } else {
+            Set<T> edges = getEdges(t);
+            removeVertex(t);
+            for (T edge : edges) {
+                removeVertexWithUsageCheck(t);
+            }
+            return true;
+        }
+    }
 }
