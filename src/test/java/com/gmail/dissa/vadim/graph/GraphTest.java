@@ -140,6 +140,18 @@ public class GraphTest {
     }
 
     @Test
+    public void testIsDependantExistShouldReturnCorrectValues() {
+        Graph<Vertex> graph = new Graph<>();
+        Vertex vertex1 = new Vertex(UUID.randomUUID());
+        Vertex vertex2 = new Vertex(UUID.randomUUID());
+        graph.addVertex(vertex1);
+        graph.addVertex(vertex2);
+        graph.createEdge(vertex1, vertex2);
+        assertFalse(graph.isDependantExist(vertex1));
+        assertTrue(graph.isDependantExist(vertex2));
+    }
+
+    @Test
     public void testMatrix() {
         char graph[][] = new char[][]{
                 {'1', '1', 'O', '1'},
