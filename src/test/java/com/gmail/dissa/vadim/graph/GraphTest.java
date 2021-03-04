@@ -240,4 +240,21 @@ public class GraphTest {
         // THEN
         assertNotNull(exception);
     }
+
+    @Test
+    public void testAddPackageShouldThrowExceptionIfPackageHasDependencyOnItself() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+
+        // WHEN
+        IllegalArgumentException exception = null;
+        try {
+            graph.addPackage(PACKAGE_1, Set.of(PACKAGE_1));
+        } catch (IllegalArgumentException e) {
+            exception = e;
+        }
+
+        // THEN
+        assertNotNull(exception);
+    }
 }
