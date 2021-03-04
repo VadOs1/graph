@@ -5,11 +5,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Implementation:
- * - call addPackage
- * - call removePackage
- */
 public class Graph<T> {
     private final Map<T, Set<T>> adjacencyVertices;
 
@@ -20,13 +15,11 @@ public class Graph<T> {
     /**
      * Constructs a new package and dependencies
      *
-     * @param t a new package
+     * @param t   a new package
      * @param set package dependencies
-     *
-     * @throws  IllegalArgumentException if package is not provided / package already exist /
-     * package has dependency on itself
-     *
      * @return {@code true} if package was successfully added
+     * @throws IllegalArgumentException if package is not provided / package already exist /
+     *                                  package has dependency on itself
      */
     public synchronized boolean addPackage(T t, Set<T> set) {
         if (t == null) {
@@ -55,10 +48,8 @@ public class Graph<T> {
      * Removes a package and dependencies
      *
      * @param t package
-     *
-     * @throws  IllegalArgumentException if package doesn't exist
-     *
      * @return {@code true} if package was successfully removed
+     * @throws IllegalArgumentException if package doesn't exist
      */
     public synchronized boolean removePackage(T t) {
         if (adjacencyVertices.get(t) == null) {
