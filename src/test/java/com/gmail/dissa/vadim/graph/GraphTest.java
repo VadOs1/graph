@@ -109,7 +109,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldRemovePackageWithoutDependenciesFromGraphGraph() {
+    public void testShouldRemovePackageWithoutDependenciesFromGraph() {
         // GIVEN
         Graph<AppPackage> graph = new Graph<>();
 
@@ -126,7 +126,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testShouldRemovePackageWithDependenciesFromGraphGraph() {
+    public void testShouldRemovePackageWithDependenciesFromGraph() {
         // GIVEN
         Graph<AppPackage> graph = new Graph<>();
 
