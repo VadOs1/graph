@@ -159,6 +159,8 @@ public class GraphTest {
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesAfter = graph.getGraph();
         assertNotNull(adjacencyVerticesAfter);
         assertEquals(2, adjacencyVerticesAfter.size());
+        assertTrue(adjacencyVerticesAfter.get(PACKAGE_4).contains(PACKAGE_5));
+        assertTrue(adjacencyVerticesAfter.get(PACKAGE_5).contains(PACKAGE_4));
     }
 
     @Test
@@ -178,6 +180,7 @@ public class GraphTest {
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesAfter = graph.getGraph();
         assertNotNull(adjacencyVerticesAfter);
         assertEquals(1, adjacencyVerticesAfter.size());
+        assertEquals(0, adjacencyVerticesAfter.get(PACKAGE_5).size());
     }
 
 }
