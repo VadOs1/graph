@@ -24,14 +24,18 @@ public class Graph<T> {
         adjacencyVertices.putIfAbsent(t, ConcurrentHashMap.newKeySet());
     }
 
-    public synchronized void createEdge(T from, T to) {
-        checkIfExist(from);
-        checkIfExist(to);
-        adjacencyVertices.get(from).add(to);
+    public synchronized boolean createEdge(T from, T to) {
+        if(!exist(from) || !exist(to)){
+            throw new IllegalArgumentException("One of the vertices doesn't exist");
+        } else {
+            return adjacencyVertices.get(from).add(to);
+        }
     }
 
     public synchronized boolean removeVertexWithUsageCheck(T t) {
-        checkIfExist(t);
+        if(!exist(t)){
+            throw new IllegalArgumentException("Vertex doesn't exist");
+        };
         if (isReferenced(t)) {
             return false;
         } else {
@@ -52,11 +56,8 @@ public class Graph<T> {
         return adjacencyVertices.size();
     }
 
-    private void checkIfExist(T t) {
-        Set<T> edges = adjacencyVertices.get(t);
-        if (edges == null) {
-            throw new IllegalArgumentException("Doesn't exist");
-        }
+    private boolean exist(T t) {
+        return adjacencyVertices.get(t) != null;
     }
 
     private boolean isReferenced(T t) {
