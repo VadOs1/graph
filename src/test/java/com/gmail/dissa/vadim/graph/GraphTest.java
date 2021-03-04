@@ -161,4 +161,23 @@ public class GraphTest {
         assertEquals(2, adjacencyVerticesAfter.size());
     }
 
+    @Test
+    public void testShouldRemoveUnusedDescendantsFromGraph() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+
+        // WHEN
+        graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2));
+        graph.addPackage(PACKAGE_2, Set.of(PACKAGE_3, PACKAGE_4));
+        graph.addPackage(PACKAGE_5, null);
+        Map<AppPackage, Set<AppPackage>> adjacencyVerticesBefore = graph.getGraph();
+        assertEquals(5, adjacencyVerticesBefore.size());
+        graph.removePackage(PACKAGE_1);
+
+        // THEN
+        Map<AppPackage, Set<AppPackage>> adjacencyVerticesAfter = graph.getGraph();
+        assertNotNull(adjacencyVerticesAfter);
+        assertEquals(1, adjacencyVerticesAfter.size());
+    }
+
 }
