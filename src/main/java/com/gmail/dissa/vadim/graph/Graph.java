@@ -19,7 +19,7 @@ public class Graph<T> {
      * @param set package dependencies
      * @return {@code true} if package was successfully added
      * @throws IllegalArgumentException if package is not provided / package already exist /
-     *                                  package has dependency on itself
+     * package has dependency on itself
      */
     public synchronized boolean addPackage(T t, Set<T> set) {
         if (t == null) {
