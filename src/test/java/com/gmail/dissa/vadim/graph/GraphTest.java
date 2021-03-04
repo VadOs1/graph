@@ -67,4 +67,28 @@ public class GraphTest {
         assertTrue(adjacencyVertices.get(PACKAGE_4).contains(PACKAGE_5));
     }
 
+    @Test
+    public void testShouldAddMixedPackagesWithDependenciesToGraph() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+
+        // WHEN
+        graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2, PACKAGE_3));
+        graph.addPackage(PACKAGE_2, Set.of(PACKAGE_3));
+        graph.addPackage(PACKAGE_3, Set.of(PACKAGE_4, PACKAGE_5));
+
+        // THEN
+        Map<AppPackage, Set<AppPackage>> adjacencyVertices = graph.getGraph();
+        assertNotNull(adjacencyVertices);
+        assertEquals(5, adjacencyVertices.size());
+        assertEquals(2, adjacencyVertices.get(PACKAGE_1).size());
+        assertEquals(1, adjacencyVertices.get(PACKAGE_2).size());
+        assertEquals(2, adjacencyVertices.get(PACKAGE_3).size());
+        assertTrue(adjacencyVertices.get(PACKAGE_1).contains(PACKAGE_2));
+        assertTrue(adjacencyVertices.get(PACKAGE_1).contains(PACKAGE_3));
+        assertTrue(adjacencyVertices.get(PACKAGE_2).contains(PACKAGE_3));
+        assertTrue(adjacencyVertices.get(PACKAGE_3).contains(PACKAGE_4));
+        assertTrue(adjacencyVertices.get(PACKAGE_3).contains(PACKAGE_5));
+    }
+
 }

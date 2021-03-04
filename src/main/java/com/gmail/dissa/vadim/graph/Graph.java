@@ -18,8 +18,8 @@ public class Graph<T> {
      * @param t   new package
      * @param set package dependencies
      * @return {@code true} if package was successfully added
-     * @throws IllegalArgumentException if package is not provided / package already exist /
-     *                                  package has dependency on itself
+     * @throws IllegalArgumentException if package is not provided /
+     * package has dependency on itself
      */
     public synchronized boolean addPackage(T t, Set<T> set) {
         if (t == null) {
@@ -27,9 +27,6 @@ public class Graph<T> {
         }
         if (set == null) {
             set = new HashSet<>();
-        }
-        if (adjacencyVertices.get(t) != null) {
-            throw new IllegalArgumentException("Package already exist");
         }
         if (set.contains(t)) {
             throw new IllegalArgumentException("Package can not have dependency on itself");
