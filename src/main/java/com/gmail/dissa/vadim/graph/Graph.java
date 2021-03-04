@@ -79,7 +79,7 @@ public class Graph<T> {
     }
 
     /**
-     * Gets a set of all vertices. Only a map containing T references is copied.
+     * Gets a set of all vertices. Only a set containing T references is copied.
      * Objects immutability should be handled externally in T class if needed
      *
      * @return all vertices
