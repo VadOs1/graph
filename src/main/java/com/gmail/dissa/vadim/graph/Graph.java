@@ -17,6 +17,17 @@ public class Graph<T> {
         adjacencyVertices = new HashMap<>();
     }
 
+    /**
+     * Constructs a new package and dependencies
+     *
+     * @param t a new package
+     * @param set package dependencies
+     *
+     * @throws  IllegalArgumentException if package is not provided / package already exist /
+     * package has dependency on itself
+     *
+     * @return {@code true} if package was successfully added
+     */
     public synchronized boolean addPackage(T t, Set<T> set) {
         if (t == null) {
             throw new IllegalArgumentException("Package not provided");
@@ -40,6 +51,15 @@ public class Graph<T> {
         return true;
     }
 
+    /**
+     * Removes a package and dependencies
+     *
+     * @param t package
+     *
+     * @throws  IllegalArgumentException if package doesn't exist
+     *
+     * @return {@code true} if package was successfully removed
+     */
     public synchronized boolean removePackage(T t) {
         if (adjacencyVertices.get(t) == null) {
             throw new IllegalArgumentException("Package doesn't exist");
