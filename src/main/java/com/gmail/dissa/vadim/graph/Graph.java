@@ -7,11 +7,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Implementation:
- * - get packages and dependent packages
- * - create objects for each package
- * - call add vertex for each package
- * - call createEdge for each package - dependent
- * - call removeVertexWithUsageCheck when package needs to be deleted
+ * - call addPackage
+ * - call remove package
  */
 public class Graph<T> {
     private final Map<T, Set<T>> adjacencyVertices;
@@ -20,40 +17,40 @@ public class Graph<T> {
         adjacencyVertices = new ConcurrentHashMap<>();
     }
 
-    public void addVertex(T t) {
-        adjacencyVertices.putIfAbsent(t, ConcurrentHashMap.newKeySet());
-    }
-
-    public synchronized boolean createEdge(T from, T to) {
-        if(!exist(from) || !exist(to)){
-            throw new IllegalArgumentException("One of the vertices doesn't exist");
-        } else {
-            return adjacencyVertices.get(from).add(to);
+    public synchronized boolean addPackage(T t, Set<T> set) {
+        if (t == null) {
+            throw new IllegalArgumentException("Root package not provided");
         }
+        if (set == null) {
+            set = new HashSet<>();
+        }
+        addVertex(t);
+        for (T t1 : set) {
+            addVertex(t1);
+            adjacencyVertices.get(t).add(t1);
+        }
+        return true;
     }
 
-    public synchronized boolean removeVertexWithUsageCheck(T t) {
-        if(!exist(t)){
+    public synchronized boolean removePackage(T t) {
+        if (!exist(t)) {
             throw new IllegalArgumentException("Vertex doesn't exist");
-        };
+        }
+
         if (isReferenced(t)) {
             return false;
         } else {
             Set<T> edges = adjacencyVertices.get(t);
             adjacencyVertices.keySet().remove(t);
             for (T edge : edges) {
-                removeVertexWithUsageCheck(edge);
+                removePackage(edge);
             }
             return true;
         }
     }
 
-    public Set<T> getEdges(T t) {
-        return new HashSet<>(adjacencyVertices.get(t));
-    }
-
-    public int getVertexCount() {
-        return adjacencyVertices.size();
+    private void addVertex(T t) {
+        adjacencyVertices.putIfAbsent(t, ConcurrentHashMap.newKeySet());
     }
 
     private boolean exist(T t) {
