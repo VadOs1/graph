@@ -75,11 +75,7 @@ public class Graph<T> {
      * @return adjacency vertices
      */
     public Map<T, Set<T>> getGraph() {
-        Map<T, Set<T>> map = new HashMap<>();
-        for (Map.Entry<T, Set<T>> entry : adjacencyVertices.entrySet()) {
-            map.put(entry.getKey(), entry.getValue());
-        }
-        return map;
+        return new HashMap<>(adjacencyVertices);
     }
 
     /**
