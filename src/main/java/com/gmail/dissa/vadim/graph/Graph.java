@@ -24,6 +24,9 @@ public class Graph<T> {
         if (set == null) {
             set = new HashSet<>();
         }
+        if (adjacencyVertices.get(t) != null) {
+            throw new IllegalArgumentException("Package already exist");
+        }
         if (set.contains(t)) {
             throw new IllegalArgumentException("Package can not have dependency on itself");
         }
