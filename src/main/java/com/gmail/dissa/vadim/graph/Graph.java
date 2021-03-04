@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Implementation:
  * - call addPackage
- * - call remove package
+ * - call removePackage
  */
 public class Graph<T> {
     private final Map<T, Set<T>> adjacencyVertices;
