@@ -29,16 +29,17 @@ public class Graph<T> {
         }
 
         addVertex(t);
+        Set<T> edges = adjacencyVertices.get(t);
         for (T t1 : set) {
             addVertex(t1);
-            adjacencyVertices.get(t).add(t1);
+            edges.add(t1);
         }
         return true;
     }
 
     public synchronized boolean removePackage(T t) {
         if (adjacencyVertices.get(t) == null) {
-            throw new IllegalArgumentException("Vertex doesn't exist");
+            throw new IllegalArgumentException("Package doesn't exist");
         }
 
         if (isReferenced(t)) {
