@@ -15,7 +15,7 @@ public class Graph<T> {
     /**
      * Constructs a new package and dependencies
      *
-     * @param t a new package
+     * @param t new package
      * @param set package dependencies
      * @return {@code true} if package was successfully added
      * @throws IllegalArgumentException if package is not provided / package already exist /
