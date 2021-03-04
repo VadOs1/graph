@@ -19,11 +19,15 @@ public class Graph<T> {
 
     public synchronized boolean addPackage(T t, Set<T> set) {
         if (t == null) {
-            throw new IllegalArgumentException("Root package not provided");
+            throw new IllegalArgumentException("Package not provided");
         }
         if (set == null) {
             set = new HashSet<>();
         }
+        if (set.contains(t)) {
+            throw new IllegalArgumentException("Package can not have dependency on itself");
+        }
+
         addVertex(t);
         for (T t1 : set) {
             addVertex(t1);
@@ -59,7 +63,7 @@ public class Graph<T> {
 
     private boolean isReferenced(T t) {
         for (Map.Entry<T, Set<T>> entry : adjacencyVertices.entrySet()) {
-            if (!entry.getKey().equals(t) && entry.getValue().contains(t)) {
+            if (entry.getValue().contains(t)) {
                 return true;
             }
         }
