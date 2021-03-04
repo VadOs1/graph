@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class Graph<T> {
     private final Map<T, Set<T>> adjacencyVertices;
+    private final Set<T> packages = new HashSet<>();
 
     public Graph() {
         adjacencyVertices = new HashMap<>();
@@ -58,6 +59,7 @@ public class Graph<T> {
         } else {
             Set<T> edges = adjacencyVertices.get(t);
             adjacencyVertices.keySet().remove(t);
+            packages.remove(t);
             for (T edge : edges) {
                 removePackage(edge);
             }
@@ -85,16 +87,12 @@ public class Graph<T> {
      * @return all packages
      */
     public Set<T> getPackages() {
-        Set<T> set = new HashSet<>();
-        for (Map.Entry<T, Set<T>> entry : adjacencyVertices.entrySet()) {
-            set.add(entry.getKey());
-            set.addAll(entry.getValue());
-        }
-        return set;
+        return new HashSet<>(packages);
     }
 
     private void addVertex(T t) {
         adjacencyVertices.putIfAbsent(t, new HashSet<>());
+        packages.add(t);
     }
 
     private boolean isReferenced(T t) {

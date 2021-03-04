@@ -277,4 +277,21 @@ public class GraphTest {
         assertTrue(allPackages.contains(PACKAGE_4));
         assertTrue(allPackages.contains(PACKAGE_5));
     }
+
+    @Test
+    public void testGetPackagesShouldReturnCorrectPackagesWhenRemoved() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+
+        // WHEN
+        graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2));
+        graph.addPackage(PACKAGE_2, Set.of(PACKAGE_3, PACKAGE_4));
+        graph.addPackage(PACKAGE_5, null);
+        graph.removePackage(PACKAGE_1);
+        Set<AppPackage> allPackages = graph.getPackages();
+
+        // THEN
+        assertEquals(1, allPackages.size());
+        assertTrue(allPackages.contains(PACKAGE_5));
+    }
 }
