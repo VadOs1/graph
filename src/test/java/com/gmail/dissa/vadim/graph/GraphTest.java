@@ -106,7 +106,23 @@ public class GraphTest {
         assertNotNull(adjacencyVertices);
         assertEquals(3, adjacencyVertices.size());
         assertEquals(0, copyOfAdjacencyVertices.size());
+    }
 
+    @Test
+    public void testShouldRemovePackageWithoutDependenciesFromGraphGraph() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+
+        // WHEN
+        graph.addPackage(PACKAGE_1, null);
+        Map<AppPackage, Set<AppPackage>> adjacencyVerticesBefore = graph.getGraph();
+        assertEquals(1, adjacencyVerticesBefore.size());
+        graph.removePackage(PACKAGE_1);
+
+        // THEN
+        Map<AppPackage, Set<AppPackage>> adjacencyVerticesAfter = graph.getGraph();
+        assertNotNull(adjacencyVerticesAfter);
+        assertEquals(0, adjacencyVerticesAfter.size());
     }
 
 }
