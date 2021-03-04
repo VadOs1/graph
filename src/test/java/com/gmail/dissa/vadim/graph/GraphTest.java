@@ -205,4 +205,21 @@ public class GraphTest {
         assertFalse(isDeleted);
         assertEquals(5, adjacencyVerticesBefore.size());
     }
+
+    @Test
+    public void testRemoveShouldThrowExceptionIfPackageDoesNotExist() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+
+        // WHEN
+        IllegalArgumentException exception = null;
+        try {
+            graph.removePackage(PACKAGE_1);
+        } catch (IllegalArgumentException e) {
+            exception = e;
+        }
+
+        // THEN
+        assertNotNull(exception);
+    }
 }
