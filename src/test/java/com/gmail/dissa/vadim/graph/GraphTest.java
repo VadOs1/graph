@@ -3,6 +3,7 @@ package com.gmail.dissa.vadim.graph;
 import com.gmail.dissa.vadim.graph.model.AppPackage;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -207,7 +208,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testRemoveShouldThrowExceptionIfPackageDoesNotExist() {
+    public void testRemovePackageShouldThrowExceptionIfPackageDoesNotExist() {
         // GIVEN
         Graph<AppPackage> graph = new Graph<>();
 
@@ -215,6 +216,23 @@ public class GraphTest {
         IllegalArgumentException exception = null;
         try {
             graph.removePackage(PACKAGE_1);
+        } catch (IllegalArgumentException e) {
+            exception = e;
+        }
+
+        // THEN
+        assertNotNull(exception);
+    }
+
+    @Test
+    public void testAddPackageShouldThrowExceptionIfPackageDoesNotExist() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+
+        // WHEN
+        IllegalArgumentException exception = null;
+        try {
+            graph.addPackage(null, new HashSet<>());
         } catch (IllegalArgumentException e) {
             exception = e;
         }
