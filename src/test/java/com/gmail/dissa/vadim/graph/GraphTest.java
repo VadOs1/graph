@@ -259,7 +259,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testGetPackagesShouldReturnCorrectPackages() {
+    public void testGetPackagesShouldReturnCorrectVertices() {
         // GIVEN
         Graph<AppPackage> graph = new Graph<>();
 
@@ -267,7 +267,7 @@ public class GraphTest {
         graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2));
         graph.addPackage(PACKAGE_2, Set.of(PACKAGE_3, PACKAGE_4));
         graph.addPackage(PACKAGE_5, null);
-        Set<AppPackage> allPackages = graph.getPackages();
+        Set<AppPackage> allPackages = graph.getVertices();
 
         // THEN
         assertEquals(5, allPackages.size());
@@ -279,7 +279,7 @@ public class GraphTest {
     }
 
     @Test
-    public void testGetPackagesShouldReturnCorrectPackagesWhenRemoved() {
+    public void testGetPackagesShouldReturnCorrectVerticesWhenRemoved() {
         // GIVEN
         Graph<AppPackage> graph = new Graph<>();
 
@@ -288,7 +288,7 @@ public class GraphTest {
         graph.addPackage(PACKAGE_2, Set.of(PACKAGE_3, PACKAGE_4));
         graph.addPackage(PACKAGE_5, null);
         graph.removePackage(PACKAGE_1);
-        Set<AppPackage> allPackages = graph.getPackages();
+        Set<AppPackage> allPackages = graph.getVertices();
 
         // THEN
         assertEquals(1, allPackages.size());

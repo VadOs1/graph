@@ -7,11 +7,11 @@ import java.util.Set;
 
 public class Graph<T> {
     private final Map<T, Set<T>> adjacencyVertices;
-    private final Set<T> packages;
+    private final Set<T> vertices;
 
     public Graph() {
         adjacencyVertices = new HashMap<>();
-        packages = new HashSet<>();
+        vertices = new HashSet<>();
     }
 
     /**
@@ -21,7 +21,7 @@ public class Graph<T> {
      * @param set package dependencies
      * @return {@code true} if package was successfully added
      * @throws IllegalArgumentException if package is not provided /
-     * package has dependency on itself
+     *                                  package has dependency on itself
      */
     public synchronized boolean addPackage(T t, Set<T> set) {
         if (t == null) {
@@ -60,7 +60,7 @@ public class Graph<T> {
         } else {
             Set<T> edges = adjacencyVertices.get(t);
             adjacencyVertices.keySet().remove(t);
-            packages.remove(t);
+            vertices.remove(t);
             for (T edge : edges) {
                 removePackage(edge);
             }
@@ -83,17 +83,17 @@ public class Graph<T> {
     }
 
     /**
-     * Gets a set of all packages. Objects immutability should be handled externally in T class if needed
+     * Gets a set of all vertices. Objects immutability should be handled externally in T class if needed
      *
-     * @return all packages
+     * @return all vertices
      */
-    public Set<T> getPackages() {
-        return new HashSet<>(packages);
+    public Set<T> getVertices() {
+        return new HashSet<>(vertices);
     }
 
     private void addVertex(T t) {
         adjacencyVertices.putIfAbsent(t, new HashSet<>());
-        packages.add(t);
+        vertices.add(t);
     }
 
     private boolean isReferenced(T t) {
