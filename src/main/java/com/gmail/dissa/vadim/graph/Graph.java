@@ -7,10 +7,11 @@ import java.util.Set;
 
 public class Graph<T> {
     private final Map<T, Set<T>> adjacencyVertices;
-    private final Set<T> packages = new HashSet<>();
+    private final Set<T> packages;
 
     public Graph() {
         adjacencyVertices = new HashMap<>();
+        packages = new HashSet<>();
     }
 
     /**
