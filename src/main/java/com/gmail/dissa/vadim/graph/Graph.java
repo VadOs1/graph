@@ -15,11 +15,11 @@ public class Graph<T> {
     /**
      * Constructs a new package and dependencies
      *
-     * @param t new package
+     * @param t   new package
      * @param set package dependencies
      * @return {@code true} if package was successfully added
      * @throws IllegalArgumentException if package is not provided / package already exist /
-     * package has dependency on itself
+     *                                  package has dependency on itself
      */
     public synchronized boolean addPackage(T t, Set<T> set) {
         if (t == null) {
@@ -66,6 +66,20 @@ public class Graph<T> {
             }
             return true;
         }
+    }
+
+    /**
+     * Gets a copy of adjacency vertices. Only a map containing T to Set<T> references is copied.
+     * Objects immutability should be handled externally in T class if needed
+     *
+     * @return adjacency vertices
+     */
+    public Map<T, Set<T>> getGraph() {
+        Map<T, Set<T>> map = new HashMap<>();
+        for (Map.Entry<T, Set<T>> entry : adjacencyVertices.entrySet()) {
+            map.put(entry.getKey(), entry.getValue());
+        }
+        return map;
     }
 
     private void addVertex(T t) {
