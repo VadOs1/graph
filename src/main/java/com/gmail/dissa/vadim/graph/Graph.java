@@ -1,9 +1,9 @@
 package com.gmail.dissa.vadim.graph;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Implementation:
@@ -14,7 +14,7 @@ public class Graph<T> {
     private final Map<T, Set<T>> adjacencyVertices;
 
     public Graph() {
-        adjacencyVertices = new ConcurrentHashMap<>();
+        adjacencyVertices = new HashMap<>();
     }
 
     public synchronized boolean addPackage(T t, Set<T> set) {
@@ -55,7 +55,7 @@ public class Graph<T> {
     }
 
     private void addVertex(T t) {
-        adjacencyVertices.putIfAbsent(t, ConcurrentHashMap.newKeySet());
+        adjacencyVertices.putIfAbsent(t, new HashSet<>());
     }
 
     private boolean isReferenced(T t) {
