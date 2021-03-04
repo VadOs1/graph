@@ -1,8 +1,11 @@
 package com.gmail.dissa.vadim.graph;
 
+import com.gmail.dissa.vadim.graph.model.AppCell;
 import com.gmail.dissa.vadim.graph.model.Vertex;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -96,11 +99,22 @@ public class GraphDijkstraPriorityQueueTest {
     @Test
     public void testMatrix() {
         // TODO: IMPLEMENT ME
-        char[][] graph = new char[][]{
+        char[][] chars = new char[][]{
                 {'1', '1', 'O', '1'},
                 {'1', '1', '1', '1'},
                 {'1', 'X', '1', '1'},
                 {'1', '1', '1', '1'}
         };
+        GraphDijkstraPriorityQueue<AppCell> graphDijkstraPriorityQueue = new GraphDijkstraPriorityQueue<>();
+        Set<AppCell> appCells = new HashSet<>();
+
+        for (int i = 0; i < chars.length; i++){
+            for(int k = 0; k< chars[i].length; k++) {
+                AppCell appCell = new AppCell(chars[i][k], i, k);
+                graphDijkstraPriorityQueue.addVertex(appCell);
+                appCells.add(appCell);
+            }
+        }
+        System.out.println("in progress...");
     }
 }
