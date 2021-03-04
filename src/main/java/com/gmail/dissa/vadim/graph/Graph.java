@@ -37,7 +37,7 @@ public class Graph<T> {
     }
 
     public synchronized boolean removePackage(T t) {
-        if (!exist(t)) {
+        if (adjacencyVertices.get(t) == null) {
             throw new IllegalArgumentException("Vertex doesn't exist");
         }
 
@@ -55,10 +55,6 @@ public class Graph<T> {
 
     private void addVertex(T t) {
         adjacencyVertices.putIfAbsent(t, ConcurrentHashMap.newKeySet());
-    }
-
-    private boolean exist(T t) {
-        return adjacencyVertices.get(t) != null;
     }
 
     private boolean isReferenced(T t) {
