@@ -20,7 +20,7 @@ public class Graph<T> {
         adjacencyVertices = new ConcurrentHashMap<>();
     }
 
-    public void addVertex(T t) {
+    public synchronized void addVertex(T t) {
         adjacencyVertices.putIfAbsent(t, ConcurrentHashMap.newKeySet());
     }
 
