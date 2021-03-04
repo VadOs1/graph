@@ -79,6 +79,20 @@ public class Graph<T> {
         return map;
     }
 
+    /**
+     * Gets a set of all packages. Objects immutability should be handled externally in T class if needed
+     *
+     * @return all packages
+     */
+    public Set<T> getPackages() {
+        Set<T> set = new HashSet<>();
+        for (Map.Entry<T, Set<T>> entry : adjacencyVertices.entrySet()) {
+            set.add(entry.getKey());
+            set.addAll(entry.getValue());
+        }
+        return set;
+    }
+
     private void addVertex(T t) {
         adjacencyVertices.putIfAbsent(t, new HashSet<>());
     }
