@@ -142,4 +142,23 @@ public class GraphTest {
         assertEquals(0, adjacencyVerticesAfter.size());
     }
 
+    @Test
+    public void testShouldRemoveMixedPackagesWithDependenciesFromGraph() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+
+        // WHEN
+        graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2, PACKAGE_3));
+        graph.addPackage(PACKAGE_4, Set.of(PACKAGE_5));
+        graph.addPackage(PACKAGE_5, Set.of(PACKAGE_4));
+        Map<AppPackage, Set<AppPackage>> adjacencyVerticesBefore = graph.getGraph();
+        assertEquals(5, adjacencyVerticesBefore.size());
+        graph.removePackage(PACKAGE_1);
+
+        // THEN
+        Map<AppPackage, Set<AppPackage>> adjacencyVerticesAfter = graph.getGraph();
+        assertNotNull(adjacencyVerticesAfter);
+        assertEquals(2, adjacencyVerticesAfter.size());
+    }
+
 }
