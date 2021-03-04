@@ -91,4 +91,22 @@ public class GraphTest {
         assertTrue(adjacencyVertices.get(PACKAGE_3).contains(PACKAGE_5));
     }
 
+    @Test
+    public void testShouldGetCopyOfGraph() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+        Map<AppPackage, Set<AppPackage>> copyOfAdjacencyVertices = graph.getGraph();
+        assertEquals(0, copyOfAdjacencyVertices.size());
+
+        // WHEN
+        graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2, PACKAGE_3));
+
+        // THEN
+        Map<AppPackage, Set<AppPackage>> adjacencyVertices = graph.getGraph();
+        assertNotNull(adjacencyVertices);
+        assertEquals(3, adjacencyVertices.size());
+        assertEquals(0, copyOfAdjacencyVertices.size());
+
+    }
+
 }
