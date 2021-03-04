@@ -183,4 +183,21 @@ public class GraphTest {
         assertEquals(0, adjacencyVerticesAfter.get(PACKAGE_5).size());
     }
 
+    @Test
+    public void testShouldNotRemoveFromGraphIfReferenced() {
+        // GIVEN
+        Graph<AppPackage> graph = new Graph<>();
+
+        // WHEN
+        graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2));
+        graph.addPackage(PACKAGE_2, Set.of(PACKAGE_3, PACKAGE_4));
+        graph.addPackage(PACKAGE_5, null);
+        Map<AppPackage, Set<AppPackage>> adjacencyVerticesBefore = graph.getGraph();
+        assertEquals(5, adjacencyVerticesBefore.size());
+        boolean isDeleted = graph.removePackage(PACKAGE_2);
+
+        // THEN
+        assertFalse(isDeleted);
+        assertEquals(5, adjacencyVerticesBefore.size());
+    }
 }
