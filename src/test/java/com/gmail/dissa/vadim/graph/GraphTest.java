@@ -99,9 +99,10 @@ public class GraphTest {
         assertEquals(0, copyOfAdjacencyVertices.size());
 
         // WHEN
-        graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2, PACKAGE_3));
+        boolean isAdded = graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2, PACKAGE_3));
 
         // THEN
+        assertTrue(isAdded);
         Map<AppPackage, Set<AppPackage>> adjacencyVertices = graph.getGraph();
         assertNotNull(adjacencyVertices);
         assertEquals(3, adjacencyVertices.size());
@@ -117,9 +118,10 @@ public class GraphTest {
         graph.addPackage(PACKAGE_1, null);
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesBefore = graph.getGraph();
         assertEquals(1, adjacencyVerticesBefore.size());
-        graph.removePackage(PACKAGE_1);
+        boolean isDeleted = graph.removePackage(PACKAGE_1);
 
         // THEN
+        assertTrue(isDeleted);
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesAfter = graph.getGraph();
         assertNotNull(adjacencyVerticesAfter);
         assertEquals(0, adjacencyVerticesAfter.size());
@@ -134,9 +136,10 @@ public class GraphTest {
         graph.addPackage(PACKAGE_1, Set.of(PACKAGE_2, PACKAGE_3));
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesBefore = graph.getGraph();
         assertEquals(3, adjacencyVerticesBefore.size());
-        graph.removePackage(PACKAGE_1);
+        boolean isDeleted = graph.removePackage(PACKAGE_1);
 
         // THEN
+        assertTrue(isDeleted);
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesAfter = graph.getGraph();
         assertNotNull(adjacencyVerticesAfter);
         assertEquals(0, adjacencyVerticesAfter.size());
@@ -153,9 +156,10 @@ public class GraphTest {
         graph.addPackage(PACKAGE_5, Set.of(PACKAGE_4));
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesBefore = graph.getGraph();
         assertEquals(5, adjacencyVerticesBefore.size());
-        graph.removePackage(PACKAGE_1);
+        boolean isDeleted = graph.removePackage(PACKAGE_1);
 
         // THEN
+        assertTrue(isDeleted);
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesAfter = graph.getGraph();
         assertNotNull(adjacencyVerticesAfter);
         assertEquals(2, adjacencyVerticesAfter.size());
@@ -174,9 +178,10 @@ public class GraphTest {
         graph.addPackage(PACKAGE_5, null);
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesBefore = graph.getGraph();
         assertEquals(5, adjacencyVerticesBefore.size());
-        graph.removePackage(PACKAGE_1);
+        boolean isDeleted = graph.removePackage(PACKAGE_1);
 
         // THEN
+        assertTrue(isDeleted);
         Map<AppPackage, Set<AppPackage>> adjacencyVerticesAfter = graph.getGraph();
         assertNotNull(adjacencyVerticesAfter);
         assertEquals(1, adjacencyVerticesAfter.size());
