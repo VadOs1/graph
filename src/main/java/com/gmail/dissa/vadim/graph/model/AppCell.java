@@ -4,13 +4,17 @@ import java.util.Objects;
 
 public class AppCell {
     private char c;
-    private int i;
-    private int k;
+    private int x;
+    private int y;
 
-    public AppCell(char c, int i, int k) {
+    public  AppCell(){
+
+    }
+
+    public AppCell(char c, int x, int y) {
         this.c = c;
-        this.i = i;
-        this.k = k;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -18,11 +22,11 @@ public class AppCell {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AppCell appCell = (AppCell) o;
-        return c == appCell.c && i == appCell.i && k == appCell.k;
+        return c == appCell.c && x == appCell.x && y == appCell.y;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(c, i, k);
+        return Objects.hash(c, x, y);
     }
 }
