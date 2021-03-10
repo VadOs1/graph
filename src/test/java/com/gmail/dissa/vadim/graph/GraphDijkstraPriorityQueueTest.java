@@ -97,14 +97,14 @@ public class GraphDijkstraPriorityQueueTest {
     @Test
     public void testMatrix() {
         char[][] chars = new char[][]{
-                {'1', '1', '1', '1'},
+                {'I', '1', '1', '1'},
                 {'X', '1', '1', '1'},
                 {'X', '1', '1', '1'},
                 {'O', '1', '1', '1'}
         };
 
         GraphDijkstraPriorityQueue<AppCell> graph = new GraphDijkstraPriorityQueue<>();
-        AppCell source = new AppCell('1', 0, 0);
+        AppCell source = null;
         AppCell target = null;
 
         for (int i = 0; i < chars.length; i++) {
@@ -139,6 +139,11 @@ public class GraphDijkstraPriorityQueueTest {
                         if (chars[i + 1][k] != 'X') {
                             graph.createVerticesAndEdge(currentCell, new AppCell(chars[i + 1][k], i + 1, k), 1);
                         }
+                    }
+
+
+                    if (chars[i][k] == 'I') {
+                        source = new AppCell(chars[i][k], i, k);
                     }
 
                     if (chars[i][k] == 'O') {
