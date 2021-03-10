@@ -18,8 +18,14 @@ public class GraphDijkstraPriorityQueue<T> {
         adjacencyVerticesWithCost.keySet().remove(t);
     }
 
-    public void createEdge(T from, T to, Double cost) {
+    public void createEdge(T from, T to, double cost) {
         adjacencyVerticesWithCost.get(from).put(to, cost);
+    }
+
+    public void createVerticesAndEdge(T from, T to, double cost) {
+        addVertex(from);
+        addVertex(to);
+        createEdge(from, to, cost);
     }
 
     public Map<T, Double> getEdges(T t) {
@@ -31,6 +37,10 @@ public class GraphDijkstraPriorityQueue<T> {
     }
 
     public double findShortestPathCost(T t1, T t2) {
+        if (t1 == null || t2 == null) {
+            return Double.POSITIVE_INFINITY;
+        }
+
         // add initial costs map
         Map<T, Double> costs = new HashMap<>();
         adjacencyVerticesWithCost.keySet().forEach(v -> costs.put(v, Double.POSITIVE_INFINITY));
@@ -50,7 +60,7 @@ public class GraphDijkstraPriorityQueue<T> {
         while (!priorityQueue.isEmpty()) {
             Q q = priorityQueue.poll();
             T t = q.t;
-            if(!visited.contains(t)){
+            if (!visited.contains(t)) {
                 visited.add(t);
                 updateCostsAndParents(t, costs, parents, priorityQueue);
             }
@@ -60,9 +70,9 @@ public class GraphDijkstraPriorityQueue<T> {
     }
 
     private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents, PriorityQueue<Q> priorityQueue) {
-        var edges = getEdges(t);
+        Map<T, Double> edges = getEdges(t);
         for (Map.Entry<T, Double> entry : edges.entrySet()) {
-            var currentCost = costs.get(entry.getKey());
+            Double currentCost = costs.get(entry.getKey());
             if (currentCost > entry.getValue()) {
                 costs.put(entry.getKey(), entry.getValue());
                 parents.put(entry.getKey(), t);
@@ -73,13 +83,13 @@ public class GraphDijkstraPriorityQueue<T> {
 
     private double getCost(T from, T to, Map<T, Double> costs, Map<T, T> parents) {
         double totalCost = 0;
-        var targetNode = to;
+        T targetNode = to;
         while (targetNode != null) {
-            var parent = parents.get(targetNode);
-            var cost = costs.get(targetNode);
             if (targetNode == from) {
                 targetNode = null;
             } else {
+                T parent = parents.get(targetNode);
+                Double cost = costs.get(targetNode);
                 totalCost += cost;
                 targetNode = parent;
             }
