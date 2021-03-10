@@ -43,6 +43,7 @@ public class GraphDijkstraLowestCost<T> {
         adjacencyVerticesWithCost.keySet().forEach(v -> parents.put(v, null));
 
         // process root element
+        costs.put(t1, 0.0);
         updateCostsAndParents(t1, costs, parents);
 
         // mark parent as visited
@@ -57,15 +58,16 @@ public class GraphDijkstraLowestCost<T> {
             t = getLowestCostVertex(costs, visited);
         }
 
-        return getCost(t1, t2, costs, parents);
+        return costs.get(t2);
     }
 
     private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents) {
+        var currentCost = costs.get(t);
         var edges = getEdges(t);
         for (Map.Entry<T, Double> entry : edges.entrySet()) {
-            var currentCost = costs.get(entry.getKey());
-            if (currentCost > entry.getValue()) {
-                costs.put(entry.getKey(), entry.getValue());
+            var costToCheck = currentCost + entry.getValue();
+            if (costs.get(entry.getKey()) > costToCheck) {
+                costs.put(entry.getKey(), costToCheck);
                 parents.put(entry.getKey(), t);
             }
         }
@@ -85,21 +87,5 @@ public class GraphDijkstraLowestCost<T> {
         }
 
         return lowestCostVertex;
-    }
-
-    private double getCost(T from, T to, Map<T, Double> costs, Map<T, T> parents) {
-        double totalCost = 0;
-        var targetNode = to;
-        while (targetNode != null) {
-            var parent = parents.get(targetNode);
-            var cost = costs.get(targetNode);
-            if (targetNode == from) {
-                targetNode = null;
-            } else {
-                totalCost += cost;
-                targetNode = parent;
-            }
-        }
-        return totalCost;
     }
 }

@@ -55,6 +55,7 @@ public class GraphDijkstraPriorityQueue<T> {
         // send element to the queue
         PriorityQueue<Q> priorityQueue = new PriorityQueue<>(Comparator.comparingDouble(q -> q.priority));
         priorityQueue.add(new Q(t1, 0));
+        costs.put(t1, 0.0);
 
 
         while (!priorityQueue.isEmpty()) {
@@ -66,35 +67,20 @@ public class GraphDijkstraPriorityQueue<T> {
             }
         }
 
-        return getCost(t1, t2, costs, parents);
+        return costs.get(t2);
     }
 
     private void updateCostsAndParents(T t, Map<T, Double> costs, Map<T, T> parents, PriorityQueue<Q> priorityQueue) {
+        var currentCost = costs.get(t);
         Map<T, Double> edges = getEdges(t);
         for (Map.Entry<T, Double> entry : edges.entrySet()) {
-            Double currentCost = costs.get(entry.getKey());
-            if (currentCost > entry.getValue()) {
-                costs.put(entry.getKey(), entry.getValue());
+            var costToCheck = currentCost + entry.getValue();
+            if (costs.get(entry.getKey()) > costToCheck) {
+                costs.put(entry.getKey(), costToCheck);
                 parents.put(entry.getKey(), t);
             }
             priorityQueue.add(new Q(entry.getKey(), costs.get(entry.getKey())));
         }
-    }
-
-    private double getCost(T from, T to, Map<T, Double> costs, Map<T, T> parents) {
-        double totalCost = 0;
-        T targetNode = to;
-        while (targetNode != null) {
-            if (targetNode == from) {
-                targetNode = null;
-            } else {
-                T parent = parents.get(targetNode);
-                Double cost = costs.get(targetNode);
-                totalCost += cost;
-                targetNode = parent;
-            }
-        }
-        return totalCost;
     }
 
     private class Q {
