@@ -4,9 +4,6 @@ import com.gmail.dissa.vadim.graph.model.AppCell;
 import com.gmail.dissa.vadim.graph.model.Vertex;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -101,84 +98,57 @@ public class GraphDijkstraPriorityQueueTest {
     public void testMatrix() {
         char[][] chars = new char[][]{
                 {'1', '1', '1', '1'},
-                {'1', 'X', 'X', '1'},
-                {'1', 'X', 'X', '1'},
+                {'X', '1', '1', '1'},
+                {'X', '1', '1', '1'},
                 {'O', '1', '1', '1'}
         };
+
+        GraphDijkstraPriorityQueue<AppCell> graph = new GraphDijkstraPriorityQueue<>();
         AppCell source = new AppCell('1', 0, 0);
         AppCell target = null;
-        Map<Coordinate, Character> coordinatesCharacterMap = new HashMap<>();
+
         for (int i = 0; i < chars.length; i++) {
             for (int k = 0; k < chars[i].length; k++) {
-                coordinatesCharacterMap.put(new Coordinate(i, k), chars[i][k]);
-                if (chars[i][k] == 'O') {
-                    target = new AppCell(chars[i][k], i, k);
+                AppCell currentCell = new AppCell(chars[i][k], i, k);
+                graph.addVertex(currentCell);
+
+                if (currentCell.getC() != 'X') {
+                    // left
+                    if (k - 1 >= 0) {
+                        if (chars[i][k - 1] != 'X') {
+                            graph.createVerticesAndEdge(currentCell, new AppCell(chars[i][k - 1], i, k - 1), 1);
+                        }
+                    }
+
+                    // right
+                    if (k + 1 < chars[i].length) {
+                        if (chars[i][k + 1] != 'X') {
+                            graph.createVerticesAndEdge(currentCell, new AppCell(chars[i][k + 1], i, k + 1), 1);
+                        }
+                    }
+
+                    // top
+                    if (i - 1 >= 0) {
+                        if (chars[i - 1][k] != 'X') {
+                            graph.createVerticesAndEdge(currentCell, new AppCell(chars[i - 1][k], i - 1, k), 1);
+                        }
+                    }
+
+                    // bottom
+                    if (i + 1 < chars.length) {
+                        if (chars[i + 1][k] != 'X') {
+                            graph.createVerticesAndEdge(currentCell, new AppCell(chars[i + 1][k], i + 1, k), 1);
+                        }
+                    }
+
+                    if (chars[i][k] == 'O') {
+                        target = new AppCell(chars[i][k], i, k);
+                    }
                 }
             }
         }
 
-        GraphDijkstraPriorityQueue<AppCell> graph = new GraphDijkstraPriorityQueue<>();
-        for (Map.Entry<Coordinate, Character> entry : coordinatesCharacterMap.entrySet()) {
-            Coordinate currentCoordinate = entry.getKey();
-            Character currentCharacterValue = entry.getValue();
-            addEdges(currentCoordinate.y, currentCoordinate.x, currentCharacterValue, coordinatesCharacterMap, graph);
-        }
-
         double pathCost = graph.findShortestPathCost(source, target);
         assertEquals(3.0, pathCost, 0);
-    }
-
-    private void addEdges(int currentCoordinateY, int currentCoordinateX, char currentValue, Map<Coordinate, Character> map, GraphDijkstraPriorityQueue<AppCell> graph) {
-        AppCell cell = new AppCell(currentValue, currentCoordinateY, currentCoordinateX);
-        graph.addVertex(cell);
-        if (currentValue == 'X') {
-            // no connections
-        } else {
-            Coordinate leftCoordinate = new Coordinate(currentCoordinateY, currentCoordinateX - 1);
-            addEdge(cell, leftCoordinate, map.get(leftCoordinate), graph);
-
-            Coordinate rightCoordinate = new Coordinate(currentCoordinateY, currentCoordinateX + 1);
-            addEdge(cell, rightCoordinate, map.get(rightCoordinate), graph);
-
-            Coordinate topCoordinate = new Coordinate(currentCoordinateY - 1, currentCoordinateX);
-            addEdge(cell, topCoordinate, map.get(topCoordinate), graph);
-
-            Coordinate bottomCoordinate = new Coordinate(currentCoordinateY + 1, currentCoordinateX);
-            addEdge(cell, bottomCoordinate, map.get(bottomCoordinate), graph);
-        }
-    }
-
-    private void addEdge(AppCell appCell, Coordinate coordinate, Character character, GraphDijkstraPriorityQueue<AppCell> graph) {
-        if (character == null) {
-            return;
-        }
-        if (character != 'X') {
-            graph.createVerticesAndEdge(appCell, new AppCell(character, coordinate.y, coordinate.x), 1.0);
-        }
-    }
-
-
-    class Coordinate {
-        public int y;
-        public int x;
-
-        public Coordinate(int y, int x) {
-            this.y = y;
-            this.x = x;
-
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Coordinate that = (Coordinate) o;
-            return x == that.x && y == that.y;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y);
-        }
     }
 }

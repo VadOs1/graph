@@ -16,6 +16,18 @@ public class AppCell {
         this.x = x;
     }
 
+    public char getC() {
+        return c;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
