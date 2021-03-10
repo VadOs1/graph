@@ -103,6 +103,10 @@ public class GraphDijkstraPriorityQueueTest {
                 {'O', '1', '1', '1'}
         };
 
+        char SOURCE_CHAR = 'I';
+        char TARGET_CHAR = 'O';
+        char STOP_CHAR = 'X';
+
         GraphDijkstraPriorityQueue<AppCell> graph = new GraphDijkstraPriorityQueue<>();
         AppCell source = null;
         AppCell target = null;
@@ -112,48 +116,35 @@ public class GraphDijkstraPriorityQueueTest {
                 AppCell currentCell = new AppCell(chars[i][k], i, k);
                 graph.addVertex(currentCell);
 
-                if (currentCell.getC() != 'X') {
-                    // left
-                    if (k - 1 >= 0) {
-                        if (chars[i][k - 1] != 'X') {
-                            graph.createVerticesAndEdge(currentCell, new AppCell(chars[i][k - 1], i, k - 1), 1);
-                        }
+                if (currentCell.getC() != STOP_CHAR) {
+                    if (k - 1 >= 0) {   // left
+                        addEdge(currentCell, chars[i][k - 1], i, k - 1, 1.0, STOP_CHAR, graph);
                     }
-
-                    // right
-                    if (k + 1 < chars[i].length) {
-                        if (chars[i][k + 1] != 'X') {
-                            graph.createVerticesAndEdge(currentCell, new AppCell(chars[i][k + 1], i, k + 1), 1);
-                        }
+                    if (k + 1 < chars[i].length) {  // right
+                        addEdge(currentCell, chars[i][k + 1], i, k + 1, 1.0, STOP_CHAR, graph);
                     }
-
-                    // top
-                    if (i - 1 >= 0) {
-                        if (chars[i - 1][k] != 'X') {
-                            graph.createVerticesAndEdge(currentCell, new AppCell(chars[i - 1][k], i - 1, k), 1);
-                        }
+                    if (i - 1 >= 0) { // top
+                        addEdge(currentCell, chars[i - 1][k], i - 1, k, 1.0, STOP_CHAR, graph);
                     }
-
-                    // bottom
-                    if (i + 1 < chars.length) {
-                        if (chars[i + 1][k] != 'X') {
-                            graph.createVerticesAndEdge(currentCell, new AppCell(chars[i + 1][k], i + 1, k), 1);
-                        }
+                    if (i + 1 < chars.length) { // bottom
+                        addEdge(currentCell, chars[i + 1][k], i + 1, k, 1.0, STOP_CHAR, graph);
                     }
-
-
-                    if (chars[i][k] == 'I') {
+                    if (chars[i][k] == SOURCE_CHAR) { // source
                         source = new AppCell(chars[i][k], i, k);
                     }
 
-                    if (chars[i][k] == 'O') {
+                    if (chars[i][k] == TARGET_CHAR) { // target
                         target = new AppCell(chars[i][k], i, k);
                     }
                 }
             }
         }
+        assertEquals(5.0, graph.findShortestPathCost(source, target), 0);
+    }
 
-        double pathCost = graph.findShortestPathCost(source, target);
-        assertEquals(5.0, pathCost, 0);
+    private void addEdge(AppCell appCell, char c, int y, int x, double cost, char stopChar, GraphDijkstraPriorityQueue<AppCell> graph) {
+        if (c != stopChar) {
+            graph.createVerticesAndEdge(appCell, new AppCell(c, y, x), cost);
+        }
     }
 }
