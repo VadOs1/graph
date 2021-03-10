@@ -112,7 +112,7 @@ public class GraphDijkstraPriorityQueueTest {
             for (int k = 0; k < chars[i].length; k++) {
                 coordinatesCharacterMap.put(new Coordinate(i, k), chars[i][k]);
                 if (chars[i][k] == 'O') {
-                    target = new AppCell(chars[i][k], k, i);
+                    target = new AppCell(chars[i][k], i, k);
                 }
             }
         }
@@ -121,14 +121,15 @@ public class GraphDijkstraPriorityQueueTest {
         for (Map.Entry<Coordinate, Character> entry : coordinatesCharacterMap.entrySet()) {
             Coordinate currentCoordinate = entry.getKey();
             Character currentCharacterValue = entry.getValue();
-            addEdges(currentCoordinate.x, currentCoordinate.y, currentCharacterValue, coordinatesCharacterMap, graph);
+            addEdges(currentCoordinate.y, currentCoordinate.x, currentCharacterValue, coordinatesCharacterMap, graph);
         }
+
         double pathCost = graph.findShortestPathCost(source, target);
         assertEquals(3.0, pathCost, 0);
     }
 
-    private void addEdges(int currentCoordinateX, int currentCoordinateY, char currentValue, Map<Coordinate, Character> map, GraphDijkstraPriorityQueue<AppCell> graph) {
-        AppCell cell = new AppCell(currentValue, currentCoordinateX, currentCoordinateY);
+    private void addEdges(int currentCoordinateY, int currentCoordinateX, char currentValue, Map<Coordinate, Character> map, GraphDijkstraPriorityQueue<AppCell> graph) {
+        AppCell cell = new AppCell(currentValue, currentCoordinateY, currentCoordinateX);
         graph.addVertex(cell);
         if (currentValue == 'X') {
             // no connections
@@ -152,7 +153,7 @@ public class GraphDijkstraPriorityQueueTest {
             return;
         }
         if (character != 'X') {
-            graph.createVerticesAndEdge(appCell, new AppCell(character, coordinate.x, coordinate.y), 1.0);
+            graph.createVerticesAndEdge(appCell, new AppCell(character, coordinate.y, coordinate.x), 1.0);
         }
     }
 

@@ -8,13 +8,12 @@ public class AppCell {
     private int y;
 
     public  AppCell(){
-
     }
 
-    public AppCell(char c, int x, int y) {
+    public AppCell(char c, int y, int x) {
         this.c = c;
-        this.x = x;
         this.y = y;
+        this.x = x;
     }
 
     @Override
