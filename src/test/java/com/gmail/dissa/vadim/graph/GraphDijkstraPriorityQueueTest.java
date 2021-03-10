@@ -149,6 +149,6 @@ public class GraphDijkstraPriorityQueueTest {
         }
 
         double pathCost = graph.findShortestPathCost(source, target);
-        assertEquals(3.0, pathCost, 0);
+        assertEquals(5.0, pathCost, 0);
     }
 }
